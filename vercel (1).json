@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "bracket.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/registrants", "dest": "/api/registrants.js" },
+    { "src": "/api/brackets", "dest": "/api/brackets.js" },
+    { "src": "/api/settings", "dest": "/api/settings.js" },
+    { "src": "/(.*)", "dest": "/bracket.html" }
+  ]
+}
