@@ -1,0 +1,14 @@
+{
+  "name": "numero-madness",
+  "version": "1.0.0",
+  "description": "Numero Madness bracket",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "build": "echo 'No build step'"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.0"
+  }
+}
