@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>64-Team Tournament Bracket</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --logo-bg: url('data:image/webp;base64,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');
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: #2a2a3e;
+    --accent: #f0c040;
+    --accent2: #e05a20;
+    --text: #e8e8f0;
+    --muted: #6060808;
+    --win: #2ecc71;
+    --lose: #444460;
+    --champion: #f0c040;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #0a0a0f;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    min-height: 100vh;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: var(--logo-bg);
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.07;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #bracketWrapper {
+    position: relative;
+    z-index: 1;
+    padding-top: 80px;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a0a20 50%, #0a0a0f 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+  }
+
+  .btn:hover { background: var(--border); border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #000; border-color: var(--accent); }
+  .btn.primary:hover { background: #ffd060; }
+  .btn.danger { border-color: var(--accent2); }
+  .btn.danger:hover { background: var(--accent2); color: #fff; }
+
+  .title-input {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 4px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* BRACKET WRAPPER */
+  .bracket-wrapper {
+    padding: 20px;
+    min-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bracket-wrapper > #bracketRoot {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .bracket-wrapper > #bracketRoot > div:first-child {
+    min-width: max-content;
+    margin: 0 auto;
+  }
+
+  .bracket-grid {
+    display: flex;
+    gap: 0;
+    align-items: center;
+  }
+
+  /* Each round column */
+  .round-col {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .round-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-align: center;
+    padding: 4px 12px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+    white-space: nowrap;
+  }
+
+  .matches-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+  }
+
+  /* Match card */
+  .match {
+    position: relative;
+    margin: 4px 8px;
+  }
+
+  .match-inner {
+    background: var(--card);
+    border: 1px solid var(--border);
+    width: 160px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .match-inner:hover { border-color: #4040608; }
+
+  .team-slot {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .team-slot:last-child { border-bottom: none; }
+
+  .team-slot:hover { background: rgba(240,192,64,0.08); }
+
+  .team-slot.winner {
+    background: rgba(46,204,113,0.12);
+    color: var(--win);
+  }
+
+  .team-slot.loser {
+    background: transparent;
+    color: #445566;
+    text-decoration: line-through;
+  }
+
+  .team-slot.correct {
+    background: rgba(46,204,113,0.22);
+    color: #2ecc71;
+    box-shadow: inset 2px 0 0 #2ecc71;
+  }
+
+  .team-slot.incorrect {
+    background: rgba(220,50,50,0.15);
+    color: #e05a5a;
+    box-shadow: inset 2px 0 0 #e05a5a;
+  }
+
+  .results-badge {
+    font-size:0.6rem;letter-spacing:1px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px;
+  }
+  .results-badge.correct { background:rgba(46,204,113,0.2);color:#2ecc71; }
+  .results-badge.incorrect { background:rgba(220,50,50,0.2);color:#e05a5a; }
+
+  .vote-badge {
+    margin-left: auto;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #f0c040;
+    background: rgba(240,192,64,0.12);
+    border: 1px solid rgba(240,192,64,0.3);
+    border-radius: 8px;
+    padding: 1px 5px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .seed {
+    font-size: 0.6rem;
+    color: var(--accent2);
+    font-weight: 700;
+    min-width: 14px;
+    text-align: right;
+  }
+
+  .team-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+
+  .team-name-input {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: rgba(240,192,64,0.1);
+    border: none;
+    border-bottom: 1px solid var(--accent);
+    color: var(--accent);
+    outline: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  .win-indicator {
+    font-size: 0.55rem;
+    color: var(--win);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* Connector lines */
+  .connector {
+    position: absolute;
+    right: -9px;
+    top: 14px;
+    width: 9px;
+    height: calc(100% + 8px);
+    pointer-events: none;
+  }
+
+  /* Champion box */
+  .champion-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .champion-box {
+    background: linear-gradient(135deg, #1a1400, #2a2000);
+    border: 2px solid var(--champion);
+    width: 170px;
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .champion-box::before {
+    content: '🏆';
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .champion-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .champion-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--champion);
+    min-height: 30px;
+    word-break: break-word;
+  }
+
+  /* Modal overlay */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    padding: 28px;
+    width: 380px;
+    max-width: 95vw;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .modal h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .modal label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8888aa;
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+
+  .modal input[type="text"] {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .modal input:focus { border-color: var(--accent); }
+
+  .modal-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+
+  /* Bulk edit textarea */
+  .bulk-textarea {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px;
+    width: 100%;
+    height: 300px;
+    resize: vertical;
+    outline: none;
+    line-height: 1.6;
+  }
+
+  .bulk-textarea:focus { border-color: var(--accent); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 300;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* SVG connector lines */
+  svg.lines { overflow: visible; position: absolute; pointer-events: none; }
+
+  .region-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--accent2);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    padding: 0 4px;
+    align-self: center;
+    opacity: 0.6;
+  }
+
+  .bracket-half {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .bracket-full {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 8px 0;
+  }
+
+  .reg-btn { border-color: #40c0f0; color: #40c0f0; }
+  .reg-btn:hover { background: #40c0f0; color: #000; border-color: #40c0f0; }
+  .admin-btn { border-color: #a060f0; color: #a060f0; }
+  .admin-btn:hover { background: #a060f0; color: #fff; border-color: #a060f0; }
+  .reg-count { display:inline-block; background:#40c0f0; color:#000; font-size:0.65rem; font-weight:900; border-radius:999px; padding:1px 6px; margin-left:4px; vertical-align:middle; }
+  .modal input[type="email"] { font-family:'Barlow Condensed',sans-serif; font-size:1rem; background:var(--card); border:1px solid var(--border); color:var(--text); padding:8px 12px; width:100%; outline:none; transition:border-color 0.2s; }
+  .modal input[type="email"]:focus { border-color:var(--accent); }
+  .success-box { text-align:center; padding:20px 0 8px; }
+  .success-box .check { font-size:3rem; display:block; margin-bottom:10px; animation:pop 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+  @keyframes pop { 0%{transform:scale(0)} 100%{transform:scale(1)} }
+  .success-box h3 { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:3px; color:var(--win); margin-bottom:6px; }
+  .success-box p { font-size:0.9rem; color:#8888aa; }
+  .admin-table { width:100%; border-collapse:collapse; font-size:0.82rem; margin-top:10px; }
+  .admin-table th { text-align:left; font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); border-bottom:1px solid var(--border); padding:6px 8px; }
+  .admin-table td { padding:6px 8px; border-bottom:1px solid #1e1e2e; color:var(--text); }
+  .admin-table tr:hover td { background:rgba(255,255,255,0.03); }
+  .admin-empty { text-align:center; color:#444460; font-size:0.85rem; padding:20px 0; }
+  .admin-scroll { max-height:340px; overflow-y:auto; }
+  .admin-actions { display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:8px; }
+  .admin-count { font-size:0.8rem; color:#8888aa; }
+  .save-btn:hover { background:#2ecc71 !important; color:#000 !important; border-color:#2ecc71 !important; }
+  .save-btn.complete {
+    animation: savePulse 1.4s ease-in-out infinite;
+    background: #2ecc71 !important;
+    color: #000 !important;
+    border-color: #2ecc71 !important;
+    font-size: 1rem !important;
+    padding: 8px 24px !important;
+    box-shadow: 0 0 18px rgba(46,204,113,0.6);
+  }
+  @keyframes savePulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(46,204,113,0.4); transform: scale(1); }
+    50% { box-shadow: 0 0 28px rgba(46,204,113,0.9); transform: scale(1.06); }
+  }
+  .complete-banner {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #0a2010, #0f3018);
+    border: 2px solid #2ecc71;
+    padding: 14px 28px;
+    text-align: center;
+    z-index: 150;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    animation: dropIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+    min-width: 280px;
+  }
+  @keyframes dropIn {
+    0% { opacity:0; transform: translateX(-50%) translateY(-20px) scale(0.9); }
+    100% { opacity:1; transform: translateX(-50%) translateY(0) scale(1); }
+  }
+  .complete-banner .cb-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    color: #2ecc71;
+    margin-bottom: 4px;
+  }
+  .complete-banner .cb-sub {
+    font-size: 0.8rem;
+    color: #8888aa;
+    margin-bottom: 10px;
+  }
+  .view-bracket-link { color:#40c0f0; cursor:pointer; text-decoration:underline; font-size:0.8rem; white-space:nowrap; }
+  .view-bracket-link:hover { color:#80e0ff; }
+
+  /* Leaderboard */
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .lb-row.lb-1st { border-color: #f0c040; background: rgba(240,192,40,0.08); }
+  .lb-row.lb-2nd { border-color: #aaaaaa; background: rgba(170,170,170,0.06); }
+  .lb-row.lb-3rd { border-color: #cd7f32; background: rgba(205,127,50,0.06); }
+  .lb-rank { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; min-width:32px; text-align:center; color:#555577; }
+  .lb-1st .lb-rank { color:#f0c040; }
+  .lb-2nd .lb-rank { color:#aaaaaa; }
+  .lb-3rd .lb-rank { color:#cd7f32; }
+  .lb-name { flex:1; font-weight:700; font-size:0.95rem; letter-spacing:1px; }
+  .lb-score { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#f0c040; letter-spacing:2px; }
+  .lb-breakdown { font-size:0.65rem; color:#8888aa; display:flex; gap:6px; flex-wrap:wrap; margin-top:2px; }
+  .lb-breakdown span { background:rgba(255,255,255,0.05); border-radius:3px; padding:1px 5px; }
+  .lb-no-results { text-align:center; color:#8888aa; padding:32px; font-size:0.9rem; }
+
+  /* Visual bracket viewer */
+  .vb-grid { display:flex; align-items:center; gap:0; min-width:max-content; padding:8px 0; }
+  .vb-round { display:flex; flex-direction:column; }
+  .vb-rlabel { font-family:'Bebas Neue',sans-serif; font-size:0.7rem; letter-spacing:2px; color:var(--accent); text-align:center; padding:0 6px 6px; border-bottom:1px solid var(--border); margin-bottom:6px; white-space:nowrap; }
+  .vb-matches { display:flex; flex-direction:column; justify-content:space-around; }
+  .vb-match { margin:3px 4px; background:var(--card); border:1px solid var(--border); width:110px; overflow:hidden; }
+  .vb-slot { display:flex; align-items:center; height:22px; padding:0 5px; gap:4px; border-bottom:1px solid var(--border); font-size:0.65rem; }
+  .vb-slot:last-child { border-bottom:none; }
+  .vb-slot.vb-winner { background:rgba(46,204,113,0.2); color:#2ecc71; font-weight:700; }
+  .vb-slot.vb-loser { background:rgba(220,50,50,0.1); color:#e05a5a; text-decoration:line-through; opacity:0.7; }
+  .vb-slot.vb-correct { background:rgba(46,204,113,0.25); color:#2ecc71; font-weight:700; box-shadow:inset 2px 0 0 #2ecc71; }
+  .vb-slot.vb-incorrect { background:rgba(220,50,50,0.2); color:#e05a5a; text-decoration:line-through; box-shadow:inset 2px 0 0 #e05a5a; }
+  .vb-slot.vb-neutral { color:var(--text); }
+  .vb-slot.vb-empty { color:#334455; justify-content:center; font-style:italic; }
+  .vb-seed { font-size:0.55rem; color:var(--accent2); font-weight:700; min-width:12px; text-align:right; flex-shrink:0; }
+  .vb-name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; font-weight:600; }
+  .vb-champ-col { display:flex; flex-direction:column; align-items:center; padding:0 12px; min-width:90px; }
+  .admin-only { display:none !important; }
+  .admin-active .admin-only { display:inline-flex !important; }
+  .admin-badge { display:inline-block; background:#a060f0; color:#fff; font-size:0.6rem; font-weight:900; border-radius:999px; padding:1px 5px; margin-left:4px; vertical-align:middle; }
+  .pin-dots { display:flex; gap:8px; justify-content:center; margin:16px 0; }
+  .pin-dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--border); background:transparent; transition:background 0.15s; }
+  .pin-dot.filled { background:var(--accent); border-color:var(--accent); }
+  .pin-pad { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
+  .pin-key { font-family:"Bebas Neue",sans-serif; font-size:1.3rem; letter-spacing:2px; padding:12px; background:var(--card); border:1px solid var(--border); color:var(--text); cursor:pointer; text-align:center; transition:all 0.12s; clip-path:polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%); }
+  .pin-key:hover { background:var(--border); color:var(--accent); }
+  .pin-error { color:#e05a20; font-size:0.8rem; text-align:center; min-height:18px; margin-top:4px; }
+
+  @media print {
+    .header .controls { display: none; }
+    body { background: white; color: black; }
+  }
+
+  /* ── Voting Page ── */
+    background: rgba(46,204,113,0.1);
+  }
+
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  .bracket-wrapper {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+  }
+  .header {
+    -webkit-backdrop-filter: blur(0px);
+  }
+  /* Prevent iOS from zooming on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  /* Fix iOS button styling */
+  button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  /* Ensure modals display correctly on iOS */
+  .modal-overlay {
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal {
+    -webkit-overflow-scrolling: touch;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title-input" id="tournamentTitle">NUMERO MARCH SADNESS</div>
+  <div class="controls">
+    <button class="btn reg-btn" onclick="openRegModal()">📋 Register</button>
+    <button class="btn save-btn" id="btnSaveBracket" onclick="saveMyBracket()" style="display:none;border-color:#2ecc71;color:#2ecc71;">💾 Save Bracket</button>
+    <button class="btn admin-only" id="btnEditTeams" onclick="openBulkEdit()">✏ Edit Teams</button>
+    <button class="btn admin-only" id="btnRandomize" onclick="randomizeBracket()">🔀 Randomize</button>
+    <button class="btn admin-only" id="btnReset" onclick="resetBracket()">↺ Reset Scores</button>
+    <button class="btn danger admin-only" id="btnClear" onclick="clearAll()">✕ Clear All</button>
+    <button class="btn admin-btn" id="btnAdminPanel" onclick="openAdminModal()">🔒 Admin</button>
+    <button class="btn" id="btnMyBracket" onclick="openMyResults()" style="display:none;border-color:#2ecc71;color:#2ecc71;">📋 My Bracket</button>
+    <button class="btn" onclick="openLeaderboard()" style="border-color:#f0c040;color:#f0c040;">🏅 Leaderboard</button>
+    <button class="btn primary" onclick="window.print()">⎙ Print</button>
+  </div>
+</div>
+
+<div class="bracket-wrapper">
+  <div id="bracketRoot"></div>
+</div>
+
+<!-- Team Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h2>Edit Team</h2>
+    <label>Team Name</label>
+    <input type="text" id="editName" placeholder="Team name..." />
+    <label>Seed (optional)</label>
+    <input type="text" id="editSeed" placeholder="1–64" />
+    <div class="modal-btns">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="saveTeam()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bulk Edit Modal -->
+<div class="modal-overlay" id="bulkModal">
+  <div class="modal" style="width:460px">
+    <h2>Edit All Teams</h2>
+    <label>One team per line (64 teams, top to bottom)</label>
+    <textarea class="bulk-textarea" id="bulkTextarea"></textarea>
+    <div class="modal-btns">
+      <button class="btn" onclick="closeBulkModal()">Cancel</button>
+      <button class="btn primary" onclick="saveBulk()">Apply</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Registration Modal -->
+<div class="modal-overlay" id="regModal">
+  <div class="modal" style="width:420px">
+    <div id="regForm">
+      <h2>📋 Register</h2>
+      <p style="font-size:0.85rem;color:#8888aa;margin-bottom:4px;">Sign up to participate in the tournament.</p>
+      <label>Full Name</label>
+      <input type="text" id="regName" placeholder="Your name..." autocomplete="name" />
+      <label>Email Address</label>
+      <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email" />
+      <div id="regError" style="color:#e05a20;font-size:0.8rem;margin-top:8px;display:none;"></div>
+      <div class="modal-btns">
+        <button class="btn" onclick="closeRegModal()">Cancel</button>
+        <button class="btn primary" onclick="submitRegistration()">Register</button>
+      </div>
+    </div>
+    <div id="regSuccess" class="success-box" style="display:none">
+      <span class="check">✅</span>
+      <h3>You're Registered!</h3>
+      <p id="regSuccessMsg">Thanks for signing up. See you in the tournament!</p>
+      <div class="modal-btns" style="justify-content:center;margin-top:16px;">
+        <button class="btn primary" onclick="closeRegModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal" style="width:500px">
+    <!-- Login Panel -->
+    <div id="adminLoginPanel">
+      <h2>🔒 Admin Login</h2>
+      <p style="font-size:0.85rem;color:#8888aa;margin-bottom:8px;">Enter your 4-digit admin PIN to continue.</p>
+      <div class="pin-dots" id="pinDots">
+        <div class="pin-dot" id="pd0"></div>
+        <div class="pin-dot" id="pd1"></div>
+        <div class="pin-dot" id="pd2"></div>
+        <div class="pin-dot" id="pd3"></div>
+      </div>
+      <div class="pin-pad">
+        <button class="pin-key" onclick="pinPress('1')">1</button>
+        <button class="pin-key" onclick="pinPress('2')">2</button>
+        <button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button>
+        <button class="pin-key" onclick="pinPress('5')">5</button>
+        <button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button>
+        <button class="pin-key" onclick="pinPress('8')">8</button>
+        <button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key" onclick="pinPress('clear')" style="font-size:0.9rem;letter-spacing:1px;">CLR</button>
+        <button class="pin-key" onclick="pinPress('0')">0</button>
+        <button class="pin-key" onclick="pinPress('back')" style="font-size:1rem;">⌫</button>
+      </div>
+      <div class="pin-error" id="pinError"></div>
+      <div class="modal-btns" style="margin-top:12px;">
+        <button class="btn" onclick="closeAdminModal()">Cancel</button>
+      </div>
+    </div>
+    <!-- Registrants Panel -->
+    <div id="adminPanel" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h2>🔒 Admin Panel</h2>
+        <button class="btn" style="font-size:0.7rem;padding:4px 10px;" onclick="adminLogout()">🔒 Lock</button>
+      </div>
+      <!-- Tabs -->
+      <div style="display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:8px;">
+        <button class="btn" id="tabRegistrants" onclick="switchAdminTab('registrants')" style="font-size:0.75rem;">👥 Registrants</button>
+        <button class="btn primary" id="tabResults" onclick="switchAdminTab('results')" style="font-size:0.75rem;">🏆 Set Results</button>
+      </div>
+      <!-- Registrants Tab -->
+      <div id="adminTabRegistrants">
+        <div class="admin-scroll">
+          <table class="admin-table" id="adminTable">
+            <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Registered</th><th>Champion Pick</th><th>Bracket</th></tr></thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+          <div id="adminEmpty" class="admin-empty" style="display:none">No registrations yet.</div>
+        </div>
+        <div class="admin-actions">
+          <span class="admin-count" id="adminCount">0 registrants</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn" onclick="exportCSV()">⬇ Export CSV</button>
+            <button class="btn primary" onclick="closeAdminModal()">Close</button>
+          </div>
+        </div>
+      </div>
+      <!-- Results Tab -->
+      <div id="adminTabResults" style="display:none">
+        <p style="font-size:0.8rem;color:#8888aa;margin-bottom:10px;">Pick the real winners round by round. Participant brackets will be highlighted green (correct) or red (incorrect).</p>
+        <div id="adminResultsBracket" style="overflow:auto;max-height:420px;"></div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px;">
+          <button class="btn" onclick="clearOfficialResults()">🗑 Clear Results</button>
+          <button class="btn primary" onclick="saveOfficialResults()">💾 Save Results</button>
+          <button class="btn primary" onclick="closeAdminModal()">Close</button>
+        </div>
+      </div>
+    </div><!-- end adminTabResults -->
+  </div><!-- end adminPanel -->
+</div><!-- end adminModal -->
+
+<!-- Bracket Viewer Modal -->
+<div class="modal-overlay" id="viewerModal">
+  <div class="modal" style="width:95vw;max-width:1100px;max-height:88vh;display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h2 id="viewerTitle">👁 Bracket View</h2>
+      <button class="btn" style="font-size:0.7rem;padding:4px 10px;" onclick="closeViewerModal()">✕ Close</button>
+    </div>
+    <div id="viewerContent" style="overflow-y:auto;flex:1;"></div>
+  </div>
+</div>
+
+<!-- Master Bracket Modal -->
+<div class="modal-overlay" id="masterModal">
+  <div class="modal" style="width:95vw;max-width:1200px;max-height:92vh;display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:4px;color:#f0c040;">🏆 MASTER BRACKET</h2>
+      <button class="btn" style="font-size:0.7rem;padding:4px 10px;" onclick="closeMasterModal()">✕ Close</button>
+    </div>
+    <div style="font-size:0.75rem;color:#8888aa;margin-bottom:10px;">Official results set by admin. <span style="color:#2ecc71;">■ Green = winner</span> &nbsp; <span style="color:#e05a5a;text-decoration:line-through;">Red = eliminated</span></div>
+    <div id="masterContent" style="overflow:auto;flex:1;"></div>
+  </div>
+</div>
+
+<!-- My Bracket Results Modal -->
+<div class="modal-overlay" id="myResultsModal">
+  <div class="modal" style="width:95vw;max-width:1200px;max-height:92vh;display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <h2 id="myResultsTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:4px;color:#f0c040;">📋 MY BRACKET</h2>
+      <button class="btn" style="font-size:0.7rem;padding:4px 10px;" onclick="closeMyResultsModal()">✕ Close</button>
+    </div>
+    <div style="font-size:0.75rem;color:#8888aa;margin-bottom:10px;display:flex;gap:16px;flex-wrap:wrap;" id="myResultsScore"></div>
+    <div id="myResultsContent" style="overflow:auto;flex:1;"></div>
+  </div>
+</div>
+
+<!-- Save Confirmation Modal -->
+<div class="modal-overlay" id="saveConfirmModal">
+  <div class="modal" style="width:420px;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:12px;animation:pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275);">🔒</div>
+    <h2 style="color:var(--win);letter-spacing:3px;margin-bottom:8px;">Bracket Saved!</h2>
+    <p style="color:#8888aa;font-size:0.9rem;margin-bottom:6px;">Your picks have been locked in.</p>
+    <p id="saveConfirmName" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--accent);margin-bottom:16px;"></p>
+    <div style="background:linear-gradient(135deg,#1a1400,#2a2000);border:1px solid var(--champion);padding:14px;margin-bottom:20px;">
+      <div style="font-size:1rem;margin-bottom:4px;">🏆</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--accent);margin-bottom:4px;">YOUR CHAMPION PICK</div>
+      <div id="saveConfirmChamp" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--champion);"></div>
+    </div>
+    <p style="font-size:0.78rem;color:#555577;margin-bottom:20px;">You can no longer edit your bracket. Good luck!</p>
+    <button class="btn primary" style="width:100%;font-size:1rem;" onclick="document.getElementById('saveConfirmModal').classList.remove('active')">Got it!</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Leaderboard Modal -->
+<div class="modal-overlay" id="leaderboardModal">
+  <div class="modal" style="width:600px;max-height:88vh;display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:4px;color:#f0c040;">🏆 LEADERBOARD</h2>
+      <button class="btn" style="font-size:0.7rem;padding:4px 10px;" onclick="closeLeaderboard()">✕ Close</button>
+    </div>
+    <div style="font-size:0.75rem;color:#8888aa;margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap;" id="lbPointsKey">
+      <span>R64 = 10pts</span><span>R32 = 20pts</span><span>S16 = 30pts</span>
+      <span>E8 = 40pts</span><span>F4 = 50pts</span><span>🏆 = 100pts</span>
+    </div>
+    <div id="lbContent" style="overflow-y:auto;flex:1;"></div>
+    <div style="font-size:0.7rem;color:#555577;margin-top:12px;text-align:center;" id="lbNote">
+      Scores update as admin sets official results.
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ─── API Helpers ─────────────────────────────────────────────────────────────
+const API = '/api';
+
+async function apiFetch(path, options = {}) {
+  let res;
+  try {
+    res = await fetch(API + path, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options
+    });
+  } catch(networkErr) {
+    // fetch() itself failed — functions not reachable
+    throw new Error(`Cannot reach API at ${API}${path}. Make sure your site is deployed on Vercel (not opened as a local file) and the functions are deployed. (${networkErr.message})`);
+  }
+  if (!res.ok) {
+    let errMsg = `HTTP ${res.status} ${res.statusText}`;
+    try { const body = await res.json(); errMsg = body.error || errMsg; } catch(e) {}
+    if (res.status === 404) errMsg = `Function not found: ${path}. Check that api/*.js files are deployed.`;
+    if (res.status === 500) errMsg = `Server error in ${path}: ${errMsg}`;
+    throw new Error(errMsg);
+  }
+  return res.json();
+}
+
+const db = {
+  async getSetting(key) {
+    const data = await apiFetch(`/settings?key=${encodeURIComponent(key)}`);
+    return data.value ?? null;
+  },
+  async setSetting(key, value) {
+    await apiFetch('/settings', { method: 'POST', body: JSON.stringify({ key, value }) });
+  },
+  async getRegistrants() {
+    return apiFetch('/registrants');
+  },
+  async addRegistrant(name, email) {
+    return apiFetch('/registrants', { method: 'POST', body: JSON.stringify({ name, email }) });
+  },
+  async getBracket(email) {
+    return apiFetch(`/brackets?email=${encodeURIComponent(email)}`);
+  },
+  async saveBracket(email, name, bracketData, locked) {
+    await apiFetch('/brackets', { method: 'POST', body: JSON.stringify({ email, name, bracket_data: bracketData, locked }) });
+  },
+  async getAllBrackets() {
+    return apiFetch('/brackets');
+  },
+};
+
+// ─── State ───────────────────────────────────────────────────────────────────
+const ROUND_NAMES = ['First Four','Round of 64','Round of 32','Sweet 16','Elite 8','Final Four','Championship'];
+const NUM_TEAMS = 68; // 64 + 4 play-in teams
+let playIn = []; // 4 play-in matches, winners become seed 16 in each region
+let officialResults = null; // { bracket: [...], playIn: [...] } set by admin
+let voteCounts = {}; // key: "r{round}m{match}t{teamIdx}" → count
+
+let teams = [];
+let bracket = []; // bracket[round][matchIndex] = { top: teamIdx, bot: teamIdx, winner: null }
+let editTarget = null; // { round, match, slot }
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+function initTeams() {
+  teams = [];
+  // 4 regions: Indie, Soul, SSW/Private, Other
+  // Seeded 1-16, matchup order: 1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15
+  const regions = [
+    {
+      name: 'Indie',
+      teams: {
+        1: 'Duster', 2: 'Julie Doiron', 3: 'EAAY', 4: 'American Analog Set',
+        5: 'Eiafuawn', 6: 'Husker Du', 7: 'Unwound', 8: 'Jejune',
+        9: 'LLC', 10: 'Mineral', 11: 'Ozean', 12: 'Bedhead',
+        13: 'Codeine', 14: 'Karate', 15: 'Sequoia', 16: 'Indian Summer'
+      },
+      playIn: 'Ida'
+    },
+    {
+      name: 'Soul',
+      teams: {
+        1: 'Notations', 2: 'Syl Johnson', 3: 'Marion Black / Capso', 4: 'Penny & The Quarter',
+        5: 'Ponderosa Twins', 6: 'TL Barrett', 7: 'Helene Smith', 8: 'Fathers Children',
+        9: 'Royal Jesters', 10: 'Dreamliners', 11: 'UTB', 12: '24-Carat Black',
+        13: 'Purple Snow', 14: 'Wee', 15: 'Trevor Dandy', 16: 'Love Apple'
+      },
+      playIn: 'Harvey Scales'
+    },
+    {
+      name: 'SSW/Private',
+      teams: {
+        1: 'Ned Doheny', 2: 'Cosmic 1', 3: 'Willie Wright', 4: 'Female Species',
+        5: 'Private Yacht', 6: 'Elyse Weinberg', 7: 'Kathy Heideman', 8: 'Shira Small',
+        9: 'Acid Nightmares', 10: 'Catherine Howe', 11: 'Greenflow', 12: 'DR Hooker',
+        13: 'Chuck Senrick', 14: 'Charlie Megira', 15: 'Jeff Cowell', 16: 'Archie James Cavanaugh'
+      },
+      playIn: 'Charles Brown'
+    },
+    {
+      name: 'Other',
+      teams: {
+        1: 'Laraaji', 2: 'Blondie', 3: 'Margo', 4: 'Rupa',
+        5: 'Lijadu Sisters', 6: 'Antena', 7: 'Technicolor', 8: 'Shirley Ann Lee',
+        9: 'Wilburn Burchette', 10: 'Bobo Yeye', 11: 'Joanna Brouk', 12: 'Hamlet Minassian',
+        13: 'Bernadette Carroll', 14: 'Branko Mataja', 15: 'Don Slepian', 16: 'Alejandro Bravo'
+      },
+      playIn: 'Super Djata Band'
+    }
+  ];
+
+  const ncaaOrder = [1,16, 8,9, 5,12, 4,13, 6,11, 3,14, 7,10, 2,15];
+
+  regions.forEach(region => {
+    ncaaOrder.forEach(seed => {
+      teams.push({ name: region.teams[seed], seed, region: region.name });
+    });
+  });
+
+  // Play-in teams (indices 64-71): each region has the named play-in + the existing 16-seed competing
+  regions.forEach(region => {
+    teams.push({ name: region.playIn,        seed: 16, region: region.name, playIn: true });
+    teams.push({ name: region.teams[16],     seed: 16, region: region.name, playIn: true });
+  });
+}
+
+function initPlayIn() {
+  playIn = [];
+  // 4 play-in games; each game winner feeds into the 16-seed slot of a region
+  // Region order matches main bracket: East(0), West(1), South(2), Midwest(3)
+  // In main bracket, the 16-seed slot positions are:
+  //   East: match 0 (teams[1] is the 16-seed slot) → left side match 0 bot
+  //   West: match 8 (teams[17]) → left side match 8 bot ... 
+  // We track which main bracket match+slot each play-in feeds
+  const feedSlots = [
+    { matchIdx: 0,  slot: 'bot', side: 'left'  }, // East   16-seed → R0 match 0  bot
+    { matchIdx: 8,  slot: 'bot', side: 'left'  }, // West   16-seed → R0 match 8  bot
+    { matchIdx: 16, slot: 'bot', side: 'right' }, // South  16-seed → R0 match 16 bot (right side match 0)
+    { matchIdx: 24, slot: 'bot', side: 'right' }, // Midwest 16-seed → R0 match 24 bot (right side match 8)
+  ];
+  for (let i = 0; i < 4; i++) {
+    playIn.push({
+      top: 64 + i*2,
+      bot: 64 + i*2 + 1,
+      winner: null,
+      feedMatch: feedSlots[i].matchIdx,
+      feedSlot: feedSlots[i].slot,
+      region: ['Indie','Soul','SSW/Private','Other'][i]
+    });
+  }
+}
+
+function initBracket() {
+  initPlayIn();
+  bracket = [];
+
+  // NCAA matchup order: 1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15
+  // Each region has 16 teams in ncaaOrder positions [0..15]
+  // ncaaOrder = [1,16, 8,9, 5,12, 4,13, 6,11, 3,14, 7,10, 2,15]
+  // So within a region (base = region * 16):
+  //   seed 1  → base + 0,  seed 16 → base + 1
+  //   seed 8  → base + 2,  seed 9  → base + 3
+  //   seed 5  → base + 4,  seed 12 → base + 5
+  //   seed 4  → base + 6,  seed 13 → base + 7
+  //   seed 6  → base + 8,  seed 11 → base + 9
+  //   seed 3  → base + 10, seed 14 → base + 11
+  //   seed 7  → base + 12, seed 10 → base + 13
+  //   seed 2  → base + 14, seed 15 → base + 15
+
+  const r0 = [];
+  for (let region = 0; region < 4; region++) {
+    const base = region * 16;
+    // 8 matchups per region in correct seed order
+    const matchups = [
+      [base+0,  base+1],   // 1 v 16  (bot slot comes from play-in)
+      [base+2,  base+3],   // 8 v 9
+      [base+4,  base+5],   // 5 v 12
+      [base+6,  base+7],   // 4 v 13
+      [base+8,  base+9],   // 6 v 11
+      [base+10, base+11],  // 3 v 14
+      [base+12, base+13],  // 7 v 10
+      [base+14, base+15],  // 2 v 15
+    ];
+    matchups.forEach(([top, bot], i) => {
+      const is1v16 = i === 0;
+      r0.push({ top, bot: is1v16 ? null : bot, winner: null, hasFeedIn: is1v16 });
+    });
+  }
+  bracket.push(r0);
+
+  // Rounds 1–5
+  let prev = 32;
+  for (let r = 1; r <= 5; r++) {
+    prev = prev / 2;
+    const rd = [];
+    for (let i = 0; i < prev; i++) {
+      rd.push({ top: null, bot: null, winner: null });
+    }
+    bracket.push(rd);
+  }
+}
+
+function getTeam(idx) {
+  if (idx === null || idx === undefined) return null;
+  return teams[idx] || null;
+}
+
+// ─── Render ──────────────────────────────────────────────────────────────────
+function render() {
+  const root = document.getElementById('bracketRoot');
+  root.innerHTML = '';
+
+  // Main bracket row
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'display:flex;align-items:center;gap:0;width:100%;justify-content:space-between;';
+  wrapper.appendChild(buildSide('left'));
+  wrapper.appendChild(buildChampion());
+  wrapper.appendChild(buildSide('right'));
+  root.appendChild(wrapper);
+
+  // Play-in row below
+  const playInRow = buildPlayInRow();
+  root.appendChild(playInRow);
+}
+
+function buildPlayInRow() {
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;flex-direction:column;margin-top:32px;border-top:1px solid var(--border);padding-top:16px;';
+
+  const title = document.createElement('div');
+  title.style.cssText = 'font-family:"Bebas Neue",sans-serif;font-size:0.9rem;letter-spacing:4px;color:var(--accent);text-align:center;margin-bottom:12px;';
+  title.textContent = '— FIRST FOUR —';
+  row.appendChild(title);
+
+  const gamesRow = document.createElement('div');
+  gamesRow.style.cssText = 'display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding-bottom:24px;';
+
+  playIn.forEach((match, i) => {
+    const gameWrap = document.createElement('div');
+    gameWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px;';
+
+    const regionLabel = document.createElement('div');
+    regionLabel.style.cssText = 'font-family:"Bebas Neue",sans-serif;font-size:0.75rem;letter-spacing:2px;color:var(--accent2);margin-bottom:4px;';
+    regionLabel.textContent = match.region + ' · #16 Seed';
+    gameWrap.appendChild(regionLabel);
+
+    const matchDiv = document.createElement('div');
+    matchDiv.className = 'match';
+    matchDiv.style.cssText = 'width:160px;';
+    matchDiv.appendChild(buildTeamSlot(-1, i, 'top', match));
+    matchDiv.appendChild(buildTeamSlot(-1, i, 'bot', match));
+    gameWrap.appendChild(matchDiv);
+
+    if (match.winner !== null) {
+      const winLabel = document.createElement('div');
+      winLabel.style.cssText = 'font-size:0.65rem;color:var(--win);letter-spacing:1px;margin-top:2px;';
+      const winTeam = getTeam(match.winner);
+      winLabel.textContent = '→ Advances to Round of 64';
+      gameWrap.appendChild(winLabel);
+    }
+
+    gamesRow.appendChild(gameWrap);
+  });
+
+  row.appendChild(gamesRow);
+  return row;
+}
+function buildSide(side) {
+  const isLeft = side === 'left';
+  const container = document.createElement('div');
+  container.style.cssText = 'display:flex;align-items:center;';
+
+  const numRounds = 5; // R0..R4
+  const roundIndices = isLeft ? [0,1,2,3,4] : [4,3,2,1,0];
+
+  roundIndices.forEach((rIdx, colPos) => {
+    const col = buildRoundColumn(rIdx, side, isLeft ? colPos : (numRounds - 1 - colPos));
+    container.appendChild(col);
+  });
+
+  return container;
+}
+
+function buildRoundColumn(rIdx, side, visualCol) {
+  const isLeft = side === 'left';
+  const allMatches = bracket[rIdx];
+  const half = allMatches.length / 2;
+  // Left side uses first half of matches, right uses second half
+  const startIdx = isLeft ? 0 : half;
+  const endIdx = isLeft ? half : allMatches.length;
+  const matches = allMatches.slice(startIdx, endIdx);
+
+  const col = document.createElement('div');
+  col.style.cssText = 'display:flex;flex-direction:column;';
+
+  // Round label
+  const label = document.createElement('div');
+  label.className = 'round-label';
+  label.textContent = ROUND_NAMES[rIdx + 1]; // +1 because index 0 is 'First Four'
+  col.appendChild(label);
+
+  // Matches
+  const matchesDiv = document.createElement('div');
+  matchesDiv.style.cssText = 'display:flex;flex-direction:column;justify-content:space-around;flex:1;';
+
+  // Calculate spacing based on round
+  const baseHeight = 64; // height per match slot pair
+  const spacing = Math.pow(2, rIdx) * baseHeight;
+
+  matches.forEach((match, i) => {
+    const globalMatchIdx = startIdx + i;
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `position:relative;margin:${spacing/2 - 28}px 6px;`;
+
+    const inner = document.createElement('div');
+    inner.className = 'match-inner';
+
+    // Top slot
+    inner.appendChild(buildTeamSlot(rIdx, globalMatchIdx, 'top', match));
+    // Bottom slot
+    inner.appendChild(buildTeamSlot(rIdx, globalMatchIdx, 'bot', match));
+
+    wrapper.appendChild(inner);
+
+    // Connector line (SVG)
+    if (rIdx < 4 || (rIdx === 4 && false)) {
+      // draw connector on right for left side, left for right side
+      const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.style.cssText = `position:absolute;top:0;${isLeft?'right:-7px':'left:-7px'};width:7px;height:100%;overflow:visible;pointer-events:none;`;
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('stroke','#2a2a3e');
+      path.setAttribute('stroke-width','1');
+      path.setAttribute('fill','none');
+      // L shape connecting two slots to next match
+      path.setAttribute('d','M0 14 H6 V50 H0');
+      svg.appendChild(path);
+      wrapper.appendChild(svg);
+    }
+
+    matchesDiv.appendChild(wrapper);
+  });
+
+  col.appendChild(matchesDiv);
+  return col;
+}
+
+function buildTeamSlot(rIdx, matchIdx, slot, match) {
+  const teamIdx = match[slot];
+  const team = getTeam(teamIdx);
+  const isWinner = match.winner === teamIdx && teamIdx !== null;
+  const isLoser = match.winner !== null && match.winner !== teamIdx && teamIdx !== null;
+
+  // For the 16-seed play-in feed slot, find the linked play-in game
+  const feedPlayIn = (match.hasFeedIn && slot === 'bot')
+    ? playIn.find(p => p.feedMatch === matchIdx) : null;
+  const playInWinner = feedPlayIn ? getTeam(feedPlayIn.winner) : null;
+  const playInTeamA = feedPlayIn ? getTeam(feedPlayIn.top) : null;
+  const playInTeamB = feedPlayIn ? getTeam(feedPlayIn.bot) : null;
+
+  const div = document.createElement('div');
+  div.className = 'team-slot' + (isWinner ? ' winner' : '') + (isLoser ? ' loser' : '');
+
+  // Seed — show correct seed number
+  const seedSpan = document.createElement('span');
+  seedSpan.className = 'seed';
+  if (feedPlayIn) {
+    seedSpan.textContent = '16';
+  } else {
+    seedSpan.textContent = team ? team.seed : '';
+  }
+  div.appendChild(seedSpan);
+
+  // Name
+  const nameSpan = document.createElement('span');
+  nameSpan.className = 'team-name';
+
+  if (feedPlayIn) {
+    if (playInWinner) {
+      // Winner decided — show winner name
+      nameSpan.textContent = playInWinner.name;
+      div.title = '✓ Play-In Winner · Click to advance';
+    } else {
+      // No winner yet — show both names with slash
+      const nameA = playInTeamA ? playInTeamA.name : '?';
+      const nameB = playInTeamB ? playInTeamB.name : '?';
+      nameSpan.textContent = `${nameA} / ${nameB}`;
+      nameSpan.style.cssText = 'font-size:0.65rem;opacity:0.7;font-style:italic;';
+      div.title = 'Pick play-in winner below first';
+    }
+  } else if (team) {
+    nameSpan.textContent = team.name;
+    div.title = isWinner ? '✓ Winner · Click to undo' : 'Click to advance';
+  } else {
+    nameSpan.textContent = rIdx === 0 ? 'TBD' : '—';
+    div.title = 'TBD';
+  }
+
+  div.appendChild(nameSpan);
+
+  if (isWinner) {
+    const wi = document.createElement('span');
+    wi.className = 'win-indicator';
+    wi.textContent = '▶';
+    div.appendChild(wi);
+  }
+
+  // Vote count badge — show how many participants picked this team here
+  if (teamIdx !== null && rIdx >= 0 && !feedPlayIn) {
+    const count = getVoteCount(rIdx, matchIdx, teamIdx);
+    if (count > 0) {
+      const badge = document.createElement('span');
+      badge.className = 'vote-badge';
+      badge.textContent = count;
+      div.appendChild(badge);
+    }
+  }
+  // Play-in vote count (rIdx === -1 means play-in game)
+  if (teamIdx !== null && rIdx === -1) {
+    const count = getPlayInVoteCount(matchIdx, teamIdx);
+    if (count > 0) {
+      const badge = document.createElement('span');
+      badge.className = 'vote-badge';
+      badge.textContent = count;
+      div.appendChild(badge);
+    }
+  }
+
+  // Correct/incorrect scoring based on official results
+  if (rIdx >= 0 && !feedPlayIn) {
+    const pickResult = match.winner === teamIdx ? getPickResult(rIdx, matchIdx, teamIdx) : null;
+    if (pickResult === 'correct') div.classList.add('correct');
+    else if (pickResult === 'incorrect') div.classList.add('incorrect');
+  }
+
+  // Single click always advances winner
+  if (team) {
+    div.style.cursor = 'pointer';
+    div.title = isWinner ? 'Click to undo · Double-click to edit name' : 'Click to advance · Double-click to edit name';
+
+    let clickTimer = null;
+    div.addEventListener('click', (e) => {
+      if (!isRegistered && !isAdmin) { promptRegister(); return; }
+      if (isBracketLocked && !isAdmin) { showToast('Your bracket is locked 🔒'); return; }
+      if (clickTimer) return;
+      clickTimer = setTimeout(() => {
+        clickTimer = null;
+        if (rIdx === -1) {
+          advancePlayIn(matchIdx, teamIdx);
+        } else {
+          advanceWinner(rIdx, matchIdx, teamIdx);
+        }
+      }, 200);
+    });
+
+    div.addEventListener('dblclick', () => {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      if (!isRegistered && !isAdmin) { promptRegister(); return; }
+      if (isAdmin) openEditModal(teamIdx, rIdx, matchIdx, slot);
+      else showToast('Double-click edit requires admin access');
+    });
+  }
+
+  return div;
+}
+
+function buildChampion() {
+  const col = document.createElement('div');
+  col.className = 'champion-col';
+
+  // Round 5 label
+  const label = document.createElement('div');
+  label.className = 'round-label';
+  label.textContent = 'CHAMPION';
+  label.style.marginBottom = '20px';
+  col.appendChild(label);
+
+  const champBox = document.createElement('div');
+  champBox.className = 'champion-box';
+
+  const champLabel = document.createElement('div');
+  champLabel.className = 'champion-label';
+  champLabel.textContent = '🏆 Champion';
+
+  const champName = document.createElement('div');
+  champName.className = 'champion-name';
+
+  // Final match is bracket[5][0]
+  const finalMatch = bracket[5][0];
+  if (finalMatch && finalMatch.winner !== null) {
+    const t = getTeam(finalMatch.winner);
+    champName.textContent = t ? t.name : '—';
+  } else {
+    champName.textContent = '?';
+    champName.style.color = '#444460';
+  }
+
+  // Final four match slots
+  const ffMatch = bracket[5][0];
+  const ffDiv = document.createElement('div');
+  ffDiv.style.cssText = 'margin-top:16px;';
+
+  [['top','Left'], ['bot','Right']].forEach(([slot, side]) => {
+    const teamIdx = ffMatch[slot];
+    const team = getTeam(teamIdx);
+    const slotDiv = document.createElement('div');
+    slotDiv.className = 'team-slot' + (ffMatch.winner === teamIdx && teamIdx !== null ? ' winner' : '') + (ffMatch.winner !== null && ffMatch.winner !== teamIdx && teamIdx !== null ? ' loser' : '');
+    slotDiv.style.cssText = 'width:150px;margin:2px auto;cursor:pointer;';
+
+    const seed = document.createElement('span');
+    seed.className = 'seed';
+    seed.textContent = team ? team.seed : '';
+    const name = document.createElement('span');
+    name.className = 'team-name';
+    name.textContent = team ? team.name : '—';
+    slotDiv.appendChild(seed);
+    slotDiv.appendChild(name);
+
+    if (team) {
+      slotDiv.addEventListener('click', () => {
+        if (!isRegistered && !isAdmin) { promptRegister(); return; }
+        if (isBracketLocked && !isAdmin) { showToast('Your bracket is locked 🔒'); return; }
+        advanceWinner(5, 0, teamIdx);
+      });
+      slotDiv.title = 'Click to crown champion';
+    }
+
+    ffDiv.appendChild(slotDiv);
+  });
+
+  champBox.appendChild(champLabel);
+  champBox.appendChild(champName);
+  col.appendChild(champBox);
+  col.appendChild(ffDiv);
+
+  return col;
+}
+
+// ─── Game Logic ───────────────────────────────────────────────────────────────
+function advanceWinner(rIdx, matchIdx, winnerTeamIdx) {
+  const match = bracket[rIdx][matchIdx];
+  if (!match) return;
+
+  // Toggle: if already winner, deselect
+  if (match.winner === winnerTeamIdx) {
+    match.winner = null;
+    // Remove from next round
+    if (rIdx < 5) {
+      const nextMatch = getNextMatch(rIdx, matchIdx);
+      if (nextMatch) {
+        const slot = getNextSlot(rIdx, matchIdx);
+        if (nextMatch[slot] === winnerTeamIdx) {
+          nextMatch[slot] = null;
+          nextMatch.winner = null;
+          // Cascade clear
+          cascadeClear(rIdx + 1, Math.floor(matchIdx / 2));
+        }
+      }
+    }
+  } else {
+    match.winner = winnerTeamIdx;
+    // Push to next round
+    if (rIdx < 5) {
+      const nextMatchIdx = Math.floor(matchIdx / 2);
+      const nextMatch = bracket[rIdx + 1][nextMatchIdx];
+      const slot = matchIdx % 2 === 0 ? 'top' : 'bot';
+      nextMatch[slot] = winnerTeamIdx;
+      // Clear winner of next match if it was the other team
+      nextMatch.winner = null;
+    }
+  }
+  render();
+  if (isRegistered && !isBracketLocked) checkCompletionPulse();
+}
+
+function checkCompletionPulse() {
+  const btn = document.getElementById('btnSaveBracket');
+  if (!btn) return;
+  if (isBracketComplete()) {
+    btn.classList.add('complete');
+    if (!document.getElementById('completeBanner')) {
+      const banner = document.createElement('div');
+      banner.id = 'completeBanner';
+      banner.className = 'complete-banner';
+      banner.innerHTML = `
+        <div class="cb-title">🎉 Bracket Complete!</div>
+        <div class="cb-sub">Lock in your picks before the deadline.</div>
+        <button class="btn primary" style="width:100%;font-size:0.9rem;margin-top:2px;" onclick="document.getElementById('completeBanner').remove();saveMyBracket();">💾 Save & Lock Bracket</button>
+        <button class="btn" style="width:100%;font-size:0.8rem;margin-top:6px;padding:5px;" onclick="document.getElementById('completeBanner').remove();">Dismiss</button>
+      `;
+      document.body.appendChild(banner);
+      setTimeout(() => { const b = document.getElementById('completeBanner'); if(b) b.remove(); }, 10000);
+    }
+  } else {
+    btn.classList.remove('complete');
+    const banner = document.getElementById('completeBanner');
+    if (banner) banner.remove();
+  }
+}
+
+
+function advancePlayIn(playInIdx, winnerTeamIdx) {
+  const match = playIn[playInIdx];
+  if (!match) return;
+  if (match.winner === winnerTeamIdx) {
+    // Undo — clear winner and remove from main bracket
+    match.winner = null;
+    bracket[0][match.feedMatch].bot = null;
+    bracket[0][match.feedMatch].winner = null;
+    cascadeClear(1, Math.floor(match.feedMatch / 2));
+  } else {
+    match.winner = winnerTeamIdx;
+    // Feed winner's teamIdx into the 16-seed bot slot so it can be advanced
+    bracket[0][match.feedMatch].bot = winnerTeamIdx;
+    bracket[0][match.feedMatch].winner = null;
+  }
+  render();
+  if (isRegistered && !isBracketLocked) checkCompletionPulse();
+}
+
+function cascadeClear(rIdx, matchIdx) {
+  if (rIdx >= bracket.length) return;
+  const match = bracket[rIdx][matchIdx];
+  if (!match) return;
+  match.winner = null;
+  cascadeClear(rIdx + 1, Math.floor(matchIdx / 2));
+}
+
+function getNextMatch(rIdx, matchIdx) {
+  if (rIdx + 1 >= bracket.length) return null;
+  return bracket[rIdx + 1][Math.floor(matchIdx / 2)];
+}
+
+function getNextSlot(rIdx, matchIdx) {
+  return matchIdx % 2 === 0 ? 'top' : 'bot';
+}
+
+// ─── Edit Modal ───────────────────────────────────────────────────────────────
+function openEditModal(teamIdx, rIdx, matchIdx, slot) {
+  editTarget = { teamIdx, rIdx, matchIdx, slot };
+  const team = teams[teamIdx];
+  document.getElementById('editName').value = team.name;
+  document.getElementById('editSeed').value = team.seed || '';
+  document.getElementById('editModal').classList.add('active');
+  setTimeout(() => document.getElementById('editName').focus(), 50);
+}
+
+function closeModal() {
+  document.getElementById('editModal').classList.remove('active');
+  editTarget = null;
+}
+
+function saveTeam() {
+  if (!editTarget) return;
+  const name = document.getElementById('editName').value.trim();
+  const seed = document.getElementById('editSeed').value.trim();
+  if (name) {
+    teams[editTarget.teamIdx].name = name;
+    teams[editTarget.teamIdx].seed = seed || editTarget.teamIdx + 1;
+  }
+  closeModal();
+  render();
+  showToast('Team updated!');
+}
+
+// ─── Bulk Edit ────────────────────────────────────────────────────────────────
+function _openBulkEdit() {
+  const lines = teams.map(t => t.name).join('\n');
+  document.getElementById('bulkTextarea').value = lines;
+  document.getElementById('bulkModal').classList.add('active');
+}
+
+function closeBulkModal() {
+  document.getElementById('bulkModal').classList.remove('active');
+}
+
+async function saveBulk() {
+  const lines = document.getElementById('bulkTextarea').value.split('\n');
+  for (let i = 0; i < 64; i++) {
+    const name = (lines[i] || '').trim();
+    if (name) teams[i].name = name;
+  }
+  closeBulkModal();
+  render();
+  try { await db.setSetting('teams', JSON.stringify(teams.map(t => ({ name: t.name, seed: t.seed })))); } catch(e) {}
+  showToast('Teams updated!');
+}
+
+// ─── Controls ─────────────────────────────────────────────────────────────────
+function _randomizeBracket() {
+  // Shuffle names only within each region of 16, keeping seeds intact
+  for (let region = 0; region < 4; region++) {
+    const start = region * 16;
+    const regionTeams = teams.slice(start, start + 16);
+    const names = regionTeams.map(t => t.name);
+    for (let i = names.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [names[i], names[j]] = [names[j], names[i]];
+    }
+    names.forEach((name, i) => { teams[start + i].name = name; });
+  }
+  resetBracket();
+  showToast('Teams shuffled!');
+}
+
+function resetBracket() {
+  initBracket();
+  render();
+}
+
+function _clearAll() {
+  if (!confirm('Clear all team names?')) return;
+  initTeams();
+  resetBracket();
+  showToast('Bracket cleared!');
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ─── Keyboard shortcuts ───────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('adminLoginPanel')?.style.display !== 'none' && document.getElementById('adminModal').classList.contains('active')) {
+    if (e.key >= '0' && e.key <= '9') { pinPress(e.key); return; }
+    if (e.key === 'Backspace') { pinPress('back'); return; }
+  }
+  if (e.key === 'Escape') {
+    closeModal();
+    closeBulkModal();
+  }
+  if (e.key === 'Enter' && document.getElementById('editModal').classList.contains('active')) {
+    saveTeam();
+  }
+});
+
+document.getElementById('editModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('editModal')) closeModal();
+});
+document.getElementById('bulkModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('bulkModal')) closeBulkModal();
+});
+
+
+
+// ─── Bracket Persistence ──────────────────────────────────────────────────────
+
+function isBracketComplete() {
+  // 4 play-in + 63 bracket matches = 67 total
+  const playInDone = playIn.every(m => m.winner !== null);
+  let filled = 0;
+  bracket.forEach(round => { round.forEach(m => { if (m.winner !== null) filled++; }); });
+  return playInDone && filled === 63;
+}
+
+function setBracketLocked(val) {
+  isBracketLocked = val;
+  const btn = document.getElementById('btnSaveBracket');
+  const mb = document.getElementById('btnMyBracket');
+  if (btn) {
+    if (val) {
+      btn.style.display = 'none'; // hide save button once locked
+    } else {
+      btn.textContent = '💾 Save Bracket';
+      btn.style.borderColor = '#2ecc71';
+      btn.style.color = '#2ecc71';
+      btn.onclick = saveMyBracket;
+      btn.style.display = '';
+    }
+  }
+  if (mb) mb.style.display = ''; // always show My Bracket once registered
+  // Show/hide lock banner
+  let lockBanner = document.getElementById('bracketLockedBanner');
+  if (val) {
+    if (!lockBanner) {
+      lockBanner = document.createElement('div');
+      lockBanner.id = 'bracketLockedBanner';
+      lockBanner.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1a0a2a,#2a1040);border:1px solid #a060f0;padding:8px 20px;font-family:Bebas Neue,sans-serif;font-size:0.85rem;letter-spacing:2px;color:#a060f0;z-index:99;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);cursor:pointer;';
+      lockBanner.textContent = '🔒 YOUR BRACKET IS LOCKED · Click 📋 My Bracket to see your picks';
+      lockBanner.onclick = openMyResults;
+      document.body.appendChild(lockBanner);
+    }
+  } else {
+    if (lockBanner) lockBanner.remove();
+  }
+}
+
+async function saveMyBracket() {
+  if (!isRegistered || !currentUser) { showToast('Please register first!'); return; }
+  if (!isBracketComplete()) {
+    showToast('Complete all 63 picks before saving!');
+    return;
+  }
+  if (!confirm('Once saved, your bracket will be locked and cannot be changed. Are you sure?')) return;
+  // bracket saved via Supabase below
+  try {
+    const bracketData = bracket.map(round => round.map(m => ({ top: m.top, bot: m.bot, winner: m.winner })));
+    const playInData = playIn.map(m => ({ top: m.top, bot: m.bot, winner: m.winner, feedMatch: m.feedMatch, feedSlot: m.feedSlot, region: m.region }));
+    await db.saveBracket(currentUser.email, currentUser.name, { bracket: bracketData, playIn: playInData }, true);
+    localStorage.setItem('bracketLocked', '1');
+    setBracketLocked(true);
+    await tallyVotes();
+    // Reset main bracket to official results view — user's picks move to My Bracket
+    if (officialResults) {
+      applyOfficialResultsToMainBracket();
+    } else {
+      resetBracket();
+    }
+    render();
+    const finalMatch = bracket[5] && bracket[5][0];
+    const champ = (finalMatch && finalMatch.winner !== null) ? teams[finalMatch.winner] : null;
+    document.getElementById('saveConfirmName').textContent = currentUser.name + "'s bracket is locked in.";
+    document.getElementById('saveConfirmChamp').textContent = champ ? champ.name : '—';
+    document.getElementById('saveConfirmModal').classList.add('active');
+  } catch(e) { console.error('Save error:', e); showToast('Save failed: ' + e.message); }
+}
+
+async function loadMyBracket() {
+  if (!isRegistered || !currentUser) return;
+  try {
+    const locked = localStorage.getItem('bracketLocked') === '1';
+    const row = await db.getBracket(currentUser.email);
+    if (row && row.bracket_data) {
+      const saved = typeof row.bracket_data === 'string' ? JSON.parse(row.bracket_data) : row.bracket_data;
+      const bracketData = saved.bracket || saved; // support old format
+      const playInData = saved.playIn || null;
+      bracketData.forEach((round, r) => {
+        round.forEach((m, i) => {
+          if (bracket[r] && bracket[r][i]) {
+            bracket[r][i].top = m.top;
+            bracket[r][i].bot = m.bot;
+            bracket[r][i].winner = m.winner;
+            // Preserve hasFeedIn — don't overwrite it from saved data
+          }
+        });
+      });
+      // Re-feed play-in winners into their bracket slots after restoring
+      if (playInData) {
+        playInData.forEach((m, i) => {
+          if (playIn[i]) {
+            playIn[i].winner = m.winner;
+            // If play-in had a winner, make sure bracket slot has correct teamIdx
+            if (m.winner !== null) {
+              bracket[0][playIn[i].feedMatch].bot = m.winner;
+            }
+          }
+        });
+      }
+      render();
+      if (row.locked || locked) {
+        setBracketLocked(true);
+        showToast('Welcome back — your bracket is locked 🔒');
+      } else {
+        showToast('Previous bracket restored ✓');
+      }
+    }
+  } catch(e) { console.error('loadMyBracket error:', e.message); }
+}
+
+async function loadParticipantBracket(email, name) {
+  try {
+    const row = await db.getBracket(email);
+    if (!row || !row.bracket_data) { showViewerModal(name, null); return; }
+    const bracketData = typeof row.bracket_data === 'string' ? JSON.parse(row.bracket_data) : row.bracket_data;
+    const saved2 = typeof row.bracket_data === 'string' ? JSON.parse(row.bracket_data) : row.bracket_data;
+    const viewBracket = saved2.bracket || saved2;
+    const viewPlayIn = saved2.playIn || null;
+    showViewerModal(name, { bracket: viewBracket, playIn: viewPlayIn, savedAt: row.updated_at ? new Date(row.updated_at).toLocaleString() : '' });
+  } catch(e) { showToast('Could not load bracket'); }
+}
+
+function showViewerModal(name, snapshot) {
+  document.getElementById('viewerTitle').textContent = '👁 ' + name + "'s Bracket";
+  const content = document.getElementById('viewerContent');
+
+  if (!snapshot) {
+    content.innerHTML = '<div style="color:#8888aa;text-align:center;padding:30px 0;font-size:0.9rem;">This participant has not saved a bracket yet.</div>';
+    document.getElementById('viewerModal').classList.add('active');
+    return;
+  }
+
+  const sb = snapshot.bracket;
+  const roundNames = ['R64','R32','S16','Elite 8','F4','Final'];
+
+  // Build a mini visual bracket table
+  // Columns: R0(left) R1 R2 R3 R4 CHAMP R4 R3 R2 R1 R0(right)
+  // Each match is a small 2-row block. We render left half then right half.
+
+  function teamChip(teamIdx, isWinner, isLoser) {
+    const t = teams[teamIdx];
+    if (!t) return '<div class="vb-slot vb-empty">—</div>';
+    let cls = 'vb-slot';
+    if (isWinner) cls += ' vb-winner';
+    else if (isLoser) cls += ' vb-loser';
+    return `<div class="${cls}"><span class="vb-seed">${t.seed}</span><span class="vb-name">${escHtml(t.name)}</span></div>`;
+  }
+
+  function buildViewMatch(m) {
+    if (!m) return '<div class="vb-match"><div class="vb-slot vb-empty">—</div><div class="vb-slot vb-empty">—</div></div>';
+    const topWin = m.winner === m.top && m.top !== null;
+    const botWin = m.winner === m.bot && m.bot !== null;
+    const hasWinner = m.winner !== null;
+    return `<div class="vb-match">${teamChip(m.top, topWin, hasWinner && !topWin)}${teamChip(m.bot, botWin, hasWinner && !botWin)}</div>`;
+  }
+
+  function buildViewRound(roundIdx, side) {
+    const allMatches = sb[roundIdx] || [];
+    const half = allMatches.length / 2;
+    const matches = side === 'left' ? allMatches.slice(0, half) : allMatches.slice(half);
+    const baseGap = Math.pow(2, roundIdx) * 36;
+    let html = `<div class="vb-round"><div class="vb-rlabel">${roundNames[roundIdx]}</div><div class="vb-matches" style="gap:${baseGap}px">`;
+    matches.forEach(m => { html += buildViewMatch(m); });
+    html += '</div></div>';
+    return html;
+  }
+
+  // Champion pick
+  const fm = sb[5] && sb[5][0];
+  const champ = (fm && fm.winner !== null) ? teams[fm.winner] : null;
+  const champHtml = `<div class="vb-champ-col"><div class="vb-rlabel">CHAMP</div><div style="margin-top:8px;text-align:center;">
+    <div style="font-size:1.4rem;">🏆</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:2px;color:#f0c040;margin-top:4px;">${champ ? escHtml(champ.name) : '?'}</div>
+  </div></div>`;
+
+  let bracketHtml = `<div style="font-size:0.72rem;color:#8888aa;margin-bottom:10px;">Saved: ${escHtml(snapshot.savedAt)}</div>`;
+  bracketHtml += '<div class="vb-wrap" style="overflow-x:auto;">';
+  bracketHtml += '<div class="vb-grid">';
+  // Left side R0→R4
+  for (let r = 0; r <= 4; r++) bracketHtml += buildViewRound(r, 'left');
+  bracketHtml += champHtml;
+  // Right side R4→R0
+  for (let r = 4; r >= 0; r--) bracketHtml += buildViewRound(r, 'right');
+  bracketHtml += '</div></div>';
+
+  content.innerHTML = bracketHtml;
+  document.getElementById('viewerModal').classList.add('active');
+}
+
+function closeViewerModal() { document.getElementById('viewerModal').classList.remove('active'); }
+
+// ─── Master Bracket ───────────────────────────────────────────────────────────
+function openMasterModal() {
+  const content = document.getElementById('masterContent');
+  if (!officialResults) {
+    content.innerHTML = '<div style="color:#8888aa;text-align:center;padding:40px;font-size:0.95rem;">No official results have been set yet.<br><span style="font-size:0.8rem;">Admin must set results via the Admin panel → Set Results tab.</span></div>';
+  } else {
+    content.innerHTML = buildBracketHTML(officialResults.bracket, officialResults.playIn, null);
+  }
+  document.getElementById('masterModal').classList.add('active');
+}
+function closeMasterModal() { document.getElementById('masterModal').classList.remove('active'); }
+
+// ─── My Bracket Results ───────────────────────────────────────────────────────
+async function openMyResults() {
+  if (!isRegistered || !currentUser) { promptRegister(); return; }
+  document.getElementById('myResultsModal').classList.add('active');
+  document.getElementById('myResultsTitle').textContent = `📋 ${currentUser.name}'s Bracket`;
+  document.getElementById('myResultsContent').innerHTML = '<div style="color:#8888aa;text-align:center;padding:30px;">Loading...</div>';
+  document.getElementById('myResultsScore').innerHTML = '';
+
+  try {
+    const row = await db.getBracket(currentUser.email);
+    if (!row || !row.bracket_data) {
+      document.getElementById('myResultsContent').innerHTML = '<div style="color:#8888aa;text-align:center;padding:30px;">You haven\'t saved a bracket yet.</div>';
+      return;
+    }
+    const saved = typeof row.bracket_data === 'string' ? JSON.parse(row.bracket_data) : row.bracket_data;
+    const myBracket = saved.bracket || saved;
+    const myPlayIn = saved.playIn || null;
+
+    // Score breakdown
+    if (officialResults) {
+      const result = scoreParticipantBracket(saved);
+      const RNAMES = ['R64','R32','S16','E8','F4','🏆'];
+      const breakdownHtml = result.breakdown.map((pts, r) =>
+        `<span style="background:rgba(255,255,255,0.05);border-radius:3px;padding:2px 7px;">${RNAMES[r]}: <strong style="color:${pts>0?'#2ecc71':'#555577'}">${pts>0?'+'+pts:'0'}pts</strong></span>`
+      ).join('');
+      document.getElementById('myResultsScore').innerHTML =
+        `<span style="font-size:0.9rem;font-weight:700;color:#f0c040;margin-right:8px;">Total: ${result.total} pts</span>${breakdownHtml}
+         <span style="color:#555577;font-size:0.7rem;margin-left:4px;">· <span style="color:#2ecc71;">■ correct</span> <span style="color:#e05a5a;">■ incorrect</span> · grey = no result yet</span>`;
+    } else {
+      document.getElementById('myResultsScore').innerHTML = '<span style="color:#8888aa;">Scoring not available — admin hasn\'t set official results yet.</span>';
+    }
+
+    document.getElementById('myResultsContent').innerHTML = buildBracketHTML(myBracket, myPlayIn, officialResults);
+  } catch(e) {
+    document.getElementById('myResultsContent').innerHTML = `<div style="color:#e05a5a;padding:20px;">Error loading bracket: ${e.message}</div>`;
+  }
+}
+function closeMyResultsModal() { document.getElementById('myResultsModal').classList.remove('active'); }
+
+// ─── Shared bracket HTML builder ──────────────────────────────────────────────
+// userBracket: the bracket picks to display
+// official: officialResults to compare against (null = just show picks as-is)
+function buildBracketHTML(userBracket, userPlayIn, official) {
+  const roundNames = ['Round of 64','Round of 32','Sweet 16','Elite 8','Final Four','Championship'];
+
+  function teamChip(teamIdx, pickWinner, official_match, slot) {
+    const t = teams[teamIdx];
+    if (!t) return '<div class="vb-slot vb-empty">—</div>';
+
+    let cls = 'vb-slot';
+    if (official) {
+      // MY BRACKET mode: only colour the team the user picked
+      // Green = user picked this AND it's the official winner
+      // Red   = user picked this AND it's NOT the official winner
+      // Neutral = user didn't pick this team (don't reveal the result)
+      if (pickWinner) {
+        if (official_match && official_match.winner !== null) {
+          cls += official_match.winner === teamIdx ? ' vb-correct' : ' vb-incorrect';
+        } else {
+          // Voting not complete yet — show pick neutrally, no colour
+          cls += ' vb-neutral';
+        }
+      } else {
+        // User didn't pick this team — always neutral, never reveal result
+        cls += ' vb-neutral';
+      }
+    } else {
+      // Master bracket mode — show official winners/losers
+      if (official_match && official_match.winner !== null) {
+        cls += official_match.winner === teamIdx ? ' vb-winner' : ' vb-loser';
+      } else {
+        cls += ' vb-neutral';
+      }
+    }
+    return `<div class="${cls}"><span class="vb-seed">${t.seed}</span><span class="vb-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px;">${escHtml(t.name)}</span></div>`;
+  }
+
+  function buildMatch(m, r, mIdx) {
+    if (!m) return '<div class="vb-match"><div class="vb-slot vb-empty">—</div><div class="vb-slot vb-empty">—</div></div>';
+    const off = official ? (official.bracket[r] && official.bracket[r][mIdx]) || null : null;
+    const topPicked = m.winner === m.top && m.top !== null;
+    const botPicked = m.winner === m.bot && m.bot !== null;
+
+    let topHtml = m.top !== null ? teamChip(m.top, topPicked, off, 'top') : '<div class="vb-slot vb-empty">Play-In</div>';
+    let botHtml = m.bot !== null ? teamChip(m.bot, botPicked, off, 'bot') : '<div class="vb-slot vb-empty">Play-In</div>';
+    return `<div class="vb-match">${topHtml}${botHtml}</div>`;
+  }
+
+  function buildRound(roundIdx, side) {
+    const allMatches = userBracket[roundIdx] || [];
+    const half = Math.ceil(allMatches.length / 2);
+    const matches = side === 'left' ? allMatches.slice(0, half) : allMatches.slice(half);
+    const startIdx = side === 'left' ? 0 : half;
+    const gap = Math.pow(2, roundIdx) * 28;
+    let html = `<div class="vb-round"><div class="vb-rlabel">${roundNames[roundIdx]}</div><div class="vb-matches" style="gap:${gap}px">`;
+    matches.forEach((m, i) => { html += buildMatch(m, roundIdx, startIdx + i); });
+    html += '</div></div>';
+    return html;
+  }
+
+  // Play-in section
+  let playInHtml = '';
+  if (userPlayIn && userPlayIn.length) {
+    playInHtml = '<div style="margin-top:20px;border-top:1px solid var(--border);padding-top:12px;">';
+    playInHtml += '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--accent2);margin-bottom:8px;">FIRST FOUR</div>';
+    playInHtml += '<div style="display:flex;gap:20px;flex-wrap:wrap;">';
+    userPlayIn.forEach((m, i) => {
+      const off_pi = official && official.playIn ? official.playIn[i] : null;
+      const topT = teams[m.top], botT = teams[m.bot];
+      const topPicked = m.winner === m.top;
+      const botPicked = m.winner === m.bot;
+      let topCls = 'vb-slot', botCls = 'vb-slot';
+      if (official && official.playIn && off_pi && off_pi.winner !== null) {
+        // Only colour the team the user picked
+        if (topPicked) topCls += off_pi.winner === m.top ? ' vb-correct' : ' vb-incorrect';
+        else topCls += ' vb-neutral';
+        if (botPicked) botCls += off_pi.winner === m.bot ? ' vb-correct' : ' vb-incorrect';
+        else botCls += ' vb-neutral';
+      } else {
+        // Voting not complete — show user's pick neutrally
+        topCls += topPicked ? ' vb-neutral' : ' vb-neutral';
+        botCls += botPicked ? ' vb-neutral' : ' vb-neutral';
+      }
+      playInHtml += `<div><div style="font-size:0.6rem;color:var(--accent2);margin-bottom:2px;">${m.region} #16</div>
+        <div class="vb-match" style="width:130px;">
+          <div class="${topCls}"><span class="vb-seed">16</span><span class="vb-name">${topT ? escHtml(topT.name) : '?'}</span></div>
+          <div class="${botCls}"><span class="vb-seed">16</span><span class="vb-name">${botT ? escHtml(botT.name) : '?'}</span></div>
+        </div></div>`;
+    });
+    playInHtml += '</div></div>';
+  }
+
+  // Champion
+  const fm = userBracket[5] && userBracket[5][0];
+  const champ = (fm && fm.winner !== null) ? teams[fm.winner] : null;
+  const offChamp = official && official.bracket[5] && official.bracket[5][0];
+  let champCls = '';
+  if (champ && offChamp && offChamp.winner !== null) {
+    champCls = offChamp.winner === fm.winner ? 'color:#2ecc71' : 'color:#e05a5a';
+  } else {
+    champCls = 'color:#f0c040';
+  }
+  const champHtml = `<div class="vb-champ-col"><div class="vb-rlabel">CHAMP</div>
+    <div style="margin-top:8px;text-align:center;">
+      <div style="font-size:1.4rem;">${champ && offChamp && offChamp.winner === fm?.winner ? '✅' : champ && offChamp && offChamp.winner !== null ? '❌' : '🏆'}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:2px;${champCls};margin-top:4px;">${champ ? escHtml(champ.name) : '?'}</div>
+    </div></div>`;
+
+  let html = '<div class="vb-wrap" style="overflow-x:auto;">';
+  html += '<div class="vb-grid">';
+  for (let r = 0; r <= 4; r++) html += buildRound(r, 'left');
+  html += champHtml;
+  for (let r = 4; r >= 0; r--) html += buildRound(r, 'right');
+  html += '</div></div>';
+  html += playInHtml;
+  return html;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('viewerModal')?.addEventListener('click', e => { if (e.target === document.getElementById('viewerModal')) closeViewerModal(); });
+  document.getElementById('masterModal')?.addEventListener('click', e => { if (e.target === document.getElementById('masterModal')) closeMasterModal(); });
+  document.getElementById('myResultsModal')?.addEventListener('click', e => { if (e.target === document.getElementById('myResultsModal')) closeMyResultsModal(); });
+});
+
+// ─── Registration ─────────────────────────────────────────────────────────────
+let registrants = [];
+let isRegistered = false;
+let currentUser = null;
+let isBracketLocked = false;
+
+function promptRegister() {
+  showToast('Please register to fill out the bracket!');
+  setTimeout(() => openRegModal(), 700);
+}
+
+async function loadRegistrants() {
+  try {
+    const rows = await db.getRegistrants();
+    registrants = rows.map(r => ({ name: r.name, email: r.email, time: new Date(r.created_at).toLocaleString() }));
+  } catch(e) { console.error('loadRegistrants error:', e.message); showToast('DB error: ' + e.message.slice(0, 80)); registrants = []; }
+  // Check localStorage for returning user session
+  try {
+    const saved = localStorage.getItem('currentUser');
+    if (saved) {
+      const user = JSON.parse(saved);
+      if (registrants.some(r => r.email.toLowerCase() === user.email.toLowerCase())) {
+        isRegistered = true;
+        currentUser = user;
+        const sb = document.getElementById('btnSaveBracket'); if(sb) sb.style.display='';
+        const mb = document.getElementById('btnMyBracket'); if(mb) mb.style.display='';
+      }
+    }
+  } catch(e) {}
+  updateRegCount();
+}
+
+
+
+function updateRegCount() {
+  const btns = document.querySelectorAll('.reg-btn');
+  btns.forEach(btn => {
+    let badge = btn.querySelector('.reg-count');
+    if (registrants.length > 0) {
+      if (!badge) { badge = document.createElement('span'); badge.className = 'reg-count'; btn.appendChild(badge); }
+      badge.textContent = registrants.length;
+    } else if (badge) badge.remove();
+  });
+}
+
+function openRegModal() {
+  if (isRegistered && currentUser) {
+    // Show welcome back screen
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('regSuccess').style.display = '';
+    document.getElementById('regSuccessMsg').textContent = `Welcome back, ${currentUser.name}! You're all set to fill out the bracket.`;
+    document.getElementById('regModal').classList.add('active');
+    return;
+  }
+  document.getElementById('regForm').style.display = '';
+  document.getElementById('regSuccess').style.display = 'none';
+  document.getElementById('regName').value = '';
+  document.getElementById('regEmail').value = '';
+  document.getElementById('regError').style.display = 'none';
+  document.getElementById('regModal').classList.add('active');
+  setTimeout(() => document.getElementById('regName').focus(), 50);
+}
+
+function closeRegModal() {
+  document.getElementById('regModal').classList.remove('active');
+}
+
+async function submitRegistration() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const errEl = document.getElementById('regError');
+  const submitBtn = document.querySelector('#regForm .btn.primary');
+
+  if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = ''; return; }
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display = ''; return; }
+  if (registrants.some(r => r.email.toLowerCase() === email.toLowerCase())) {
+    errEl.textContent = 'This email is already registered.'; errEl.style.display = ''; return;
+  }
+
+  errEl.style.display = 'none';
+  if (submitBtn) { submitBtn.textContent = 'Registering...'; submitBtn.disabled = true; }
+
+  let registered = false;
+  try {
+    const row = await db.addRegistrant(name, email);
+    const entry = { name, email, time: new Date(row.created_at).toLocaleString() };
+    registrants.push(entry);
+    registered = true;
+  } catch(e) {
+    console.error('Registration DB error:', e);
+    // If duplicate on server side, still let them in
+    if (e.message && e.message.toLowerCase().includes('already')) {
+      errEl.textContent = 'This email is already registered.';
+      errEl.style.display = '';
+      if (submitBtn) { submitBtn.textContent = 'Register'; submitBtn.disabled = false; }
+      return;
+    }
+    // Show exact error so user/admin can diagnose
+    errEl.textContent = 'Error: ' + e.message;
+    errEl.style.display = '';
+    if (submitBtn) { submitBtn.textContent = 'Register'; submitBtn.disabled = false; }
+    return;
+  }
+
+  if (registered) {
+    updateRegCount();
+    isRegistered = true;
+    currentUser = { name, email };
+    const sb = document.getElementById('btnSaveBracket'); if (sb) sb.style.display = '';
+    const mb = document.getElementById('btnMyBracket'); if (mb) sb.style.display = '';
+    try { localStorage.setItem('currentUser', JSON.stringify(currentUser)); } catch(e) {}
+    updateBracketLockState();
+    document.getElementById('regSuccessMsg').textContent = `Thanks, ${name}! You're on the list.`;
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('regSuccess').style.display = '';
+  }
+
+  if (submitBtn) { submitBtn.textContent = 'Register'; submitBtn.disabled = false; }
+}
+
+
+function updateBracketLockState() {
+  const overlay = document.getElementById('bracketLockOverlay');
+  if (!isRegistered && !isAdmin) {
+    if (!overlay) {
+      const el = document.createElement('div');
+      el.id = 'bracketLockOverlay';
+      el.style.cssText = 'position:fixed;inset:0;top:70px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:50;';
+      el.innerHTML = `<div style="background:rgba(10,10,15,0.82);border:1px solid #2a2a3e;padding:18px 28px;text-align:center;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);pointer-events:none;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🔒</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:#f0c040;">Register to Fill Out Bracket</div>
+        <div style="font-size:0.78rem;color:#8888aa;margin-top:4px;">Click 📋 Register to get started</div>
+      </div>`;
+      document.body.appendChild(el);
+    }
+  } else {
+    if (overlay) overlay.remove();
+  }
+}
+
+// ─── Admin Votes Tab ──────────────────────────────────────────────────────────
+
+
+
+function applyOfficialResultsToMainBracket() {
+  if (!officialResults) return;
+  initBracket();
+  officialResults.bracket.forEach((round, r) => {
+    round.forEach((m, mIdx) => {
+      if (!bracket[r] || !bracket[r][mIdx]) return;
+      if (m.top !== null) bracket[r][mIdx].top = m.top;
+      if (m.bot !== null) bracket[r][mIdx].bot = m.bot;
+      bracket[r][mIdx].winner = m.winner;
+      if (m.winner !== null && r < 5) {
+        const nextMIdx = Math.floor(mIdx / 2);
+        const slot = mIdx % 2 === 0 ? 'top' : 'bot';
+        if (bracket[r+1] && bracket[r+1][nextMIdx]) bracket[r+1][nextMIdx][slot] = m.winner;
+      }
+    });
+  });
+  if (officialResults.playIn) {
+    officialResults.playIn.forEach((m, i) => {
+      if (playIn[i]) {
+        playIn[i].winner = m.winner;
+        if (m.winner !== null) bracket[0][playIn[i].feedMatch].bot = m.winner;
+      }
+    });
+  }
+}
+
+// ─── Admin Auth ───────────────────────────────────────────────────────────────
+const ADMIN_PIN = '1234'; // Change this PIN
+let isAdmin = false;
+let pinBuffer = '';
+
+function setAdminState(val) {
+  isAdmin = val;
+  updateBracketLockState();
+  if (val) {
+    document.body.classList.add('admin-active');
+    const btn = document.getElementById('btnAdminPanel');
+    if (btn && !btn.querySelector('.admin-badge')) {
+      const b = document.createElement('span'); b.className = 'admin-badge'; b.textContent = 'ADMIN'; btn.appendChild(b);
+    }
+  } else {
+    document.body.classList.remove('admin-active');
+    const b = document.getElementById('btnAdminPanel')?.querySelector('.admin-badge');
+    if (b) b.remove();
+  }
+}
+
+function pinPress(key) {
+  if (key === 'clear') { pinBuffer = ''; }
+  else if (key === 'back') { pinBuffer = pinBuffer.slice(0, -1); }
+  else if (pinBuffer.length < 4) { pinBuffer += key; }
+
+  // Update dots
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('pd'+i).classList.toggle('filled', i < pinBuffer.length);
+  }
+  document.getElementById('pinError').textContent = '';
+
+  if (pinBuffer.length === 4) {
+    setTimeout(() => {
+      if (pinBuffer === ADMIN_PIN) {
+        setAdminState(true);
+        pinBuffer = '';
+        showAdminPanel();
+      } else {
+        document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
+        pinBuffer = '';
+        for (let i = 0; i < 4; i++) document.getElementById('pd'+i).classList.remove('filled');
+      }
+    }, 200);
+  }
+}
+
+async function showAdminPanel() {
+  document.getElementById('adminLoginPanel').style.display = 'none';
+  document.getElementById('adminPanel').style.display = '';
+  const tbody = document.getElementById('adminTableBody');
+  const empty = document.getElementById('adminEmpty');
+  const table = document.getElementById('adminTable');
+  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#8888aa;padding:12px;font-size:0.8rem;">Loading...</td></tr>';
+  table.style.display = ''; empty.style.display = 'none';
+
+  if (registrants.length === 0) {
+    table.style.display = 'none'; empty.style.display = '';
+    document.getElementById('adminCount').textContent = '0 registrants';
+    return;
+  }
+
+  // Load all bracket snapshots in parallel
+  const snapshots = await Promise.all(registrants.map(async (r) => {
+    const key = 'bracket_' + r.email.toLowerCase().replace(/[^a-z0-9]/g,'_');
+    try {
+      const result = { value: localStorage.getItem(key) };
+      if (result && result.value) return JSON.parse(result.value);
+    } catch(e) {}
+    return null;
+  }));
+
+  tbody.innerHTML = '';
+  registrants.forEach((r, i) => {
+    const snapshot = snapshots[i];
+    // Get champion pick from snapshot
+    let champCell = '<td style="color:#444460;font-size:0.75rem;">—</td>';
+    if (snapshot && snapshot.bracket) {
+      const finalMatch = snapshot.bracket[5] && snapshot.bracket[5][0];
+      if (finalMatch && finalMatch.winner !== null) {
+        const champ = teams[finalMatch.winner];
+        if (champ) {
+          champCell = `<td><span style="color:#f0c040;font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:1px;">🏆 ${escHtml(champ.name)}</span></td>`;
+        }
+      } else {
+        champCell = '<td style="color:#666688;font-size:0.75rem;">In progress</td>';
+      }
+    }
+    const linkCell = `<td><span class="view-bracket-link" onclick="loadParticipantBracket('${escHtml(r.email)}','${escHtml(r.name)}')">View →</span></td>`;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i+1}</td><td>${escHtml(r.name)}</td><td>${escHtml(r.email)}</td><td style="color:#8888aa;font-size:0.75rem">${escHtml(r.time)}</td>${champCell}${linkCell}`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('adminCount').textContent = registrants.length + ' registrant' + (registrants.length !== 1 ? 's' : '');
+}
+
+function adminLogout() {
+  setAdminState(false);
+  closeAdminModal();
+  showToast('Admin locked');
+}
+
+function openAdminModal() {
+  pinBuffer = '';
+  for (let i = 0; i < 4; i++) document.getElementById('pd'+i).classList.remove('filled');
+  document.getElementById('pinError').textContent = '';
+  if (isAdmin) {
+    document.getElementById('adminLoginPanel').style.display = 'none';
+    document.getElementById('adminPanel').style.display = '';
+    showAdminPanel();
+  } else {
+    document.getElementById('adminLoginPanel').style.display = '';
+    document.getElementById('adminPanel').style.display = 'none';
+  }
+  document.getElementById('adminModal').classList.add('active');
+}
+
+function closeAdminModal() { document.getElementById('adminModal').classList.remove('active'); }
+
+// ─── Admin Tabs ───────────────────────────────────────────────────────────────
+function switchAdminTab(tab) {
+  document.getElementById('adminTabRegistrants').style.display = tab === 'registrants' ? '' : 'none';
+  document.getElementById('adminTabResults').style.display = tab === 'results' ? '' : 'none';
+  document.getElementById('tabRegistrants').classList.toggle('primary', tab === 'registrants');
+  document.getElementById('tabResults').classList.toggle('primary', tab === 'results');
+  if (tab === 'results') renderResultsBracket();
+}
+
+// ─── Official Results Bracket ─────────────────────────────────────────────────
+// officialResults mirrors bracket/playIn structure but is admin-only
+let resultsBracket = []; // admin's picks for real outcomes
+let resultsPlayIn = [];
+
+function initResultsBracket() {
+  if (resultsBracket.length) return; // already initialized
+  // Clone structure from main bracket
+  resultsBracket = bracket.map(round => round.map(m => ({ top: m.top, bot: m.bot, winner: null })));
+  resultsPlayIn = playIn.map(m => ({ top: m.top, bot: m.bot, winner: null, feedMatch: m.feedMatch, region: m.region }));
+  // Load from officialResults if already saved
+  if (officialResults) {
+    officialResults.bracket.forEach((round, r) => {
+      round.forEach((m, i) => {
+        if (resultsBracket[r] && resultsBracket[r][i]) resultsBracket[r][i].winner = m.winner;
+      });
+    });
+    if (officialResults.playIn) {
+      officialResults.playIn.forEach((m, i) => {
+        if (resultsPlayIn[i]) {
+          resultsPlayIn[i].winner = m.winner;
+          if (m.winner !== null) resultsBracket[0][resultsPlayIn[i].feedMatch].bot = m.winner;
+        }
+      });
+    }
+  }
+}
+
+function renderResultsBracket() {
+  initResultsBracket();
+  const container = document.getElementById('adminResultsBracket');
+  container.innerHTML = '';
+
+  // Play-in section
+  const piSection = document.createElement('div');
+  piSection.style.cssText = 'margin-bottom:16px;';
+  const piTitle = document.createElement('div');
+  piTitle.style.cssText = 'font-family:"Bebas Neue",sans-serif;font-size:0.8rem;letter-spacing:3px;color:var(--accent2);margin-bottom:8px;';
+  piTitle.textContent = 'FIRST FOUR';
+  piSection.appendChild(piTitle);
+  const piRow = document.createElement('div');
+  piRow.style.cssText = 'display:flex;gap:16px;flex-wrap:wrap;';
+  resultsPlayIn.forEach((match, i) => {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;align-items:flex-start;';
+    const lbl = document.createElement('div');
+    lbl.style.cssText = 'font-size:0.65rem;color:var(--accent2);margin-bottom:2px;letter-spacing:1px;';
+    lbl.textContent = match.region;
+    wrap.appendChild(lbl);
+    const mDiv = document.createElement('div');
+    mDiv.className = 'match';
+    mDiv.style.cssText = 'width:150px;';
+    [match.top, match.bot].forEach(tIdx => {
+      const t = getTeam(tIdx);
+      const slot = document.createElement('div');
+      const isW = match.winner === tIdx && tIdx !== null;
+      slot.className = 'team-slot' + (isW ? ' winner' : '');
+      slot.style.cssText = 'cursor:pointer;font-size:0.7rem;';
+      slot.innerHTML = `<span class="seed">${t ? t.seed : ''}</span><span class="team-name">${t ? escHtml(t.name) : '?'}</span>`;
+      if (isW) slot.innerHTML += '<span class="win-indicator">▶</span>';
+      slot.addEventListener('click', () => { advanceResultsPlayIn(i, tIdx); });
+      mDiv.appendChild(slot);
+    });
+    wrap.appendChild(mDiv);
+    piRow.appendChild(wrap);
+  });
+  piSection.appendChild(piRow);
+  container.appendChild(piSection);
+
+  // Main bracket rounds
+  const RNAMES = ['Round of 64','Round of 32','Sweet 16','Elite 8','Final Four','Championship'];
+  resultsBracket.forEach((round, rIdx) => {
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:14px;';
+    const rTitle = document.createElement('div');
+    rTitle.style.cssText = 'font-family:"Bebas Neue",sans-serif;font-size:0.8rem;letter-spacing:3px;color:var(--accent2);margin-bottom:6px;';
+    rTitle.textContent = RNAMES[rIdx] || `Round ${rIdx}`;
+    section.appendChild(rTitle);
+    const matchRow = document.createElement('div');
+    matchRow.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;';
+    round.forEach((match, mIdx) => {
+      const mDiv = document.createElement('div');
+      mDiv.className = 'match';
+      mDiv.style.cssText = 'width:150px;';
+      ['top','bot'].forEach(slot => {
+        const tIdx = match[slot];
+        const t = getTeam(tIdx);
+        const isW = match.winner === tIdx && tIdx !== null;
+        const slotDiv = document.createElement('div');
+        slotDiv.className = 'team-slot' + (isW ? ' winner' : '');
+        slotDiv.style.cssText = t ? 'cursor:pointer;font-size:0.7rem;' : 'font-size:0.7rem;opacity:0.4;';
+        const name = t ? escHtml(t.name) : (match.hasFeedIn && slot === 'bot' ? 'Play-In Winner' : '—');
+        slotDiv.innerHTML = `<span class="seed">${t ? t.seed : ''}</span><span class="team-name">${name}</span>`;
+        if (isW) slotDiv.innerHTML += '<span class="win-indicator">▶</span>';
+        if (t) slotDiv.addEventListener('click', () => advanceResultsWinner(rIdx, mIdx, tIdx));
+        mDiv.appendChild(slotDiv);
+      });
+      matchRow.appendChild(mDiv);
+    });
+    section.appendChild(matchRow);
+    container.appendChild(section);
+  });
+}
+
+function advanceResultsPlayIn(piIdx, winnerIdx) {
+  const m = resultsPlayIn[piIdx];
+  if (!m) return;
+  m.winner = m.winner === winnerIdx ? null : winnerIdx;
+  if (m.winner !== null) {
+    resultsBracket[0][m.feedMatch].bot = m.winner;
+    resultsBracket[0][m.feedMatch].winner = null;
+    cascadeResultsClear(1, Math.floor(m.feedMatch / 2));
+  } else {
+    resultsBracket[0][m.feedMatch].bot = null;
+    resultsBracket[0][m.feedMatch].winner = null;
+    cascadeResultsClear(1, Math.floor(m.feedMatch / 2));
+  }
+  renderResultsBracket();
+}
+
+function advanceResultsWinner(rIdx, mIdx, winnerIdx) {
+  const m = resultsBracket[rIdx][mIdx];
+  if (!m || (!m.top && !m.bot)) return;
+  if (m.winner === winnerIdx) {
+    m.winner = null;
+    cascadeResultsClear(rIdx + 1, Math.floor(mIdx / 2));
+  } else {
+    m.winner = winnerIdx;
+    if (rIdx + 1 < resultsBracket.length) {
+      const nextMatch = resultsBracket[rIdx + 1][Math.floor(mIdx / 2)];
+      if (nextMatch) {
+        if (mIdx % 2 === 0) nextMatch.top = winnerIdx;
+        else nextMatch.bot = winnerIdx;
+        nextMatch.winner = null;
+        cascadeResultsClear(rIdx + 2, Math.floor(mIdx / 4));
+      }
+    }
+  }
+  renderResultsBracket();
+}
+
+function cascadeResultsClear(rIdx, mIdx) {
+  if (rIdx >= resultsBracket.length) return;
+  const m = resultsBracket[rIdx][mIdx];
+  if (!m) return;
+  if (mIdx % 2 === 0) m.top = null; else m.bot = null;
+  m.winner = null;
+  cascadeResultsClear(rIdx + 1, Math.floor(mIdx / 2));
+}
+
+async function saveOfficialResults() {
+  const payload = {
+    bracket: resultsBracket.map(round => round.map(m => ({ top: m.top, bot: m.bot, winner: m.winner }))),
+    playIn: resultsPlayIn.map(m => ({ top: m.top, bot: m.bot, winner: m.winner, feedMatch: m.feedMatch, region: m.region }))
+  };
+  try {
+    await db.setSetting('officialResults', JSON.stringify(payload));
+    officialResults = payload;
+    showToast('Results saved! Main bracket updated ✓');
+    applyOfficialResultsToMainBracket();
+    render(); // re-render main bracket to show official results
+    // If leaderboard is open, refresh it
+    if (document.getElementById('leaderboardModal').classList.contains('active')) openLeaderboard();
+  } catch(e) {
+    showToast('Error saving results: ' + e.message);
+  }
+}
+
+async function clearOfficialResults() {
+  try {
+    await db.setSetting('officialResults', '');
+    officialResults = null;
+    resultsBracket = [];
+    resultsPlayIn = [];
+    resetBracket(); // back to empty seeded bracket
+    showToast('Results cleared');
+    render();
+  } catch(e) {
+    showToast('Error clearing results: ' + e.message);
+  }
+}
+
+// ─── Scoring: compare participant pick to official result ─────────────────────
+function getPickResult(rIdx, mIdx, teamIdx) {
+  if (!officialResults) return null;
+  const official = officialResults.bracket[rIdx] && officialResults.bracket[rIdx][mIdx];
+  if (!official || official.winner === null) return null;
+  if (official.winner === teamIdx) return 'correct';
+  if (official.winner !== teamIdx && teamIdx !== null) return 'incorrect';
+  return null;
+}
+
+function getPlayInResult(piIdx, teamIdx) {
+  if (!officialResults || !officialResults.playIn) return null;
+  const official = officialResults.playIn[piIdx];
+  if (!official || official.winner === null) return null;
+  return official.winner === teamIdx ? 'correct' : 'incorrect';
+}
+
+// ─── Leaderboard ─────────────────────────────────────────────────────────────
+const ROUND_POINTS = [10, 20, 30, 40, 50, 100]; // R64, R32, S16, E8, F4, Championship
+
+function scoreParticipantBracket(savedData) {
+  if (!officialResults) return null;
+  const bData = savedData.bracket || savedData;
+  const piData = savedData.playIn || null;
+  const breakdown = [0, 0, 0, 0, 0, 0]; // points per round
+  let total = 0;
+
+  bData.forEach((round, r) => {
+    round.forEach((match, m) => {
+      if (match.winner === null) return;
+      const official = officialResults.bracket[r] && officialResults.bracket[r][m];
+      if (official && official.winner !== null && official.winner === match.winner) {
+        breakdown[r] += ROUND_POINTS[r];
+        total += ROUND_POINTS[r];
+      }
+    });
+  });
+
+  return { total, breakdown };
+}
+
+async function openLeaderboard() {
+  document.getElementById('leaderboardModal').classList.add('active');
+  const content = document.getElementById('lbContent');
+  content.innerHTML = '<div class="lb-no-results">Loading scores...</div>';
+
+  if (!officialResults) {
+    content.innerHTML = '<div class="lb-no-results">No official results set yet.<br><span style="font-size:0.8rem;">Admin must set results before scores appear.</span></div>';
+    return;
+  }
+
+  try {
+    const allBrackets = await db.getAllBrackets();
+    if (!allBrackets.length) {
+      content.innerHTML = '<div class="lb-no-results">No brackets submitted yet.</div>';
+      return;
+    }
+
+    // Score each bracket
+    const scores = allBrackets.map(row => {
+      if (!row.bracket_data) return { name: row.name, email: row.email, total: 0, breakdown: [0,0,0,0,0,0] };
+      const saved = typeof row.bracket_data === 'string' ? JSON.parse(row.bracket_data) : row.bracket_data;
+      const result = scoreParticipantBracket(saved);
+      return { name: row.name, email: row.email, ...(result || { total: 0, breakdown: [0,0,0,0,0,0] }) };
+    });
+
+    // Sort by total descending
+    scores.sort((a, b) => b.total - a.total);
+
+    const roundLabels = ['R64','R32','S16','E8','F4','🏆'];
+    content.innerHTML = '';
+    scores.forEach((s, i) => {
+      const rank = i + 1;
+      const rankClass = rank === 1 ? 'lb-1st' : rank === 2 ? 'lb-2nd' : rank === 3 ? 'lb-3rd' : '';
+      const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank;
+      const breakdownHtml = s.breakdown.map((pts, r) =>
+        pts > 0 ? `<span>${roundLabels[r]}: +${pts}</span>` : ''
+      ).filter(Boolean).join('');
+
+      const row = document.createElement('div');
+      row.className = `lb-row ${rankClass}`;
+      row.innerHTML = `
+        <div class="lb-rank">${medal}</div>
+        <div style="flex:1;">
+          <div class="lb-name">${escHtml(s.name)}</div>
+          <div class="lb-breakdown">${breakdownHtml || '<span style="color:#444460;">No correct picks yet</span>'}</div>
+        </div>
+        <div class="lb-score">${s.total}<span style="font-size:0.7rem;color:#8888aa;margin-left:2px;">pts</span></div>
+      `;
+      content.appendChild(row);
+    });
+
+  } catch(e) {
+    content.innerHTML = `<div class="lb-no-results">Error loading scores: ${e.message}</div>`;
+  }
+}
+
+function closeLeaderboard() {
+  document.getElementById('leaderboardModal').classList.remove('active');
+}
+
+document.getElementById('leaderboardModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('leaderboardModal')) closeLeaderboard();
+});
+function openBulkEdit() { if (!isAdmin) { showToast('Admin access required'); return; } _openBulkEdit(); }
+function randomizeBracket() { if (!isAdmin) { showToast('Admin access required'); return; } _randomizeBracket(); }
+function clearAll() { if (!isAdmin) { showToast('Admin access required'); return; } _clearAll(); }
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function exportCSV() {
+  if (!registrants.length) { showToast('No registrants yet!'); return; }
+  const rows = [['#','Name','Email','Registered'], ...registrants.map((r,i)=>[i+1,r.name,r.email,r.time])];
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'registrants.csv'; a.click();
+}
+
+document.getElementById('regModal').addEventListener('click', e => { if (e.target === document.getElementById('regModal')) closeRegModal(); });
+document.getElementById('adminModal').addEventListener('click', e => { if (e.target === document.getElementById('adminModal')) closeAdminModal(); });
+
+async function boot() {
+  // Load team names from DB
+  try {
+    const saved = await db.getSetting('teams');
+    if (saved) {
+      const savedTeams = JSON.parse(saved);
+      savedTeams.forEach((t, i) => { if (teams[i]) { teams[i].name = t.name; teams[i].seed = t.seed; } });
+      resetBracket();
+    }
+  } catch(e) { console.error('loadTeams error:', e.message); showToast('DB error (teams): ' + e.message.slice(0, 80)); }
+
+  // Load official results
+  try {
+    const savedResults = await db.getSetting('officialResults');
+    if (savedResults) officialResults = JSON.parse(savedResults);
+  } catch(e) { console.error('loadResults error:', e.message); }
+
+  // Apply official results to main bracket display
+  if (officialResults) applyOfficialResultsToMainBracket();
+
+  await loadRegistrants();
+  await tallyVotes();
+  updateBracketLockState();
+
+  if (isRegistered && currentUser) {
+    const locked = localStorage.getItem('bracketLocked') === '1';
+    if (locked) {
+      // Bracket already saved — show My Bracket button, keep main bracket as master
+      setBracketLocked(true);
+      showToast(`Welcome back, ${currentUser.name}! View your picks via 📋 My Bracket`);
+    } else {
+      // Not yet saved — load their in-progress picks into the main bracket
+      showToast(`Welcome back, ${currentUser.name}!`);
+      await loadMyBracket();
+    }
+  }
+
+  render();
+}
+
+async function tallyVotes() {
+  try {
+    const allBrackets = await db.getAllBrackets();
+    voteCounts = {};
+    allBrackets.forEach(row => {
+      if (!row.bracket_data) return;
+      const saved = typeof row.bracket_data === 'string' ? JSON.parse(row.bracket_data) : row.bracket_data;
+      const bData = saved.bracket || saved;
+      const piData = saved.playIn || null;
+
+      // Tally bracket picks
+      bData.forEach((round, r) => {
+        round.forEach((match, m) => {
+          if (match.winner !== null) {
+            const key = `r${r}m${m}t${match.winner}`;
+            voteCounts[key] = (voteCounts[key] || 0) + 1;
+          }
+        });
+      });
+
+      // Tally play-in picks
+      if (piData) {
+        piData.forEach((match, i) => {
+          if (match.winner !== null) {
+            const key = `pi${i}t${match.winner}`;
+            voteCounts[key] = (voteCounts[key] || 0) + 1;
+          }
+        });
+      }
+    });
+    render(); // re-render with vote counts
+  } catch(e) {
+    console.error('tallyVotes error:', e.message);
+  }
+}
+
+function getVoteCount(rIdx, matchIdx, teamIdx) {
+  return voteCounts[`r${rIdx}m${matchIdx}t${teamIdx}`] || 0;
+}
+
+function getPlayInVoteCount(piIdx, teamIdx) {
+  return voteCounts[`pi${piIdx}t${teamIdx}`] || 0;
+}
+
+
+// ─── Start ────────────────────────────────────────────────────────────────────
+initTeams();
+resetBracket();
+render();
+boot();
+
+// Expose functions to window so inline onclick handlers work
+Object.assign(window, {
+  openRegModal, closeRegModal, submitRegistration,
+  openBulkEdit, closeBulkModal, saveBulk,
+  openAdminModal, closeAdminModal, adminLogout,
+  openEditModal, closeModal, saveTeam,
+  randomizeBracket, resetBracket, clearAll,
+  saveMyBracket, closeViewerModal, loadParticipantBracket,
+  exportCSV, pinPress,
+  switchAdminTab, saveOfficialResults, clearOfficialResults, tallyVotes,
+  openLeaderboard, closeLeaderboard,
+  openMasterModal, closeMasterModal,
+  openMyResults, closeMyResultsModal,
+  applyOfficialResultsToMainBracket,
+});
+</script>
+</body>
+</html>
