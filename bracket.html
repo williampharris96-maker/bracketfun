@@ -607,7 +607,148 @@
     body { background: white; color: black; }
   }
 
-  /* iOS / Mobile fixes */
+  /* ── Voting Page ── */
+  .vote-round-tab {
+    padding: 8px 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #8888aa;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .vote-round-tab:hover { color: var(--accent); }
+  .vote-round-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .vote-section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--accent2);
+    margin: 14px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .vote-matchup {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--card);
+    transition: border-color 0.2s;
+  }
+  .vote-matchup:hover { border-color: #3a3a5e; }
+
+  .vote-team {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    position: relative;
+    min-width: 0;
+    gap: 4px;
+  }
+  .vote-team:hover { background: rgba(240,192,40,0.07); }
+  .vote-team.voted { background: rgba(240,192,40,0.13); }
+  .vote-team.voted-other { opacity: 0.45; }
+
+  .vote-team-seed {
+    font-size: 0.6rem;
+    color: var(--accent2);
+    font-weight: 700;
+  }
+  .vote-team-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .vote-team.voted .vote-team-name { color: var(--accent); }
+
+  .vote-check {
+    font-size: 1rem;
+    display: none;
+  }
+  .vote-team.voted .vote-check { display: block; }
+
+  .vote-bar-wrap {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    margin-top: 2px;
+    overflow: hidden;
+  }
+  .vote-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .vote-bar.official { background: #2ecc71; }
+  .vote-team.voted .vote-bar { background: #2ecc71; }
+
+  .vote-count {
+    font-size: 0.62rem;
+    color: #8888aa;
+    text-align: center;
+  }
+  .vote-team.voted .vote-count { color: #2ecc71; }
+
+  .vote-vs {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #444466;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .vote-matchup.result-known .vote-team.official-winner {
+    background: rgba(46,204,113,0.1);
+  }
+  .vote-matchup.result-known .vote-team.official-loser {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .vote-official-badge {
+    font-size: 0.55rem;
+    background: rgba(46,204,113,0.2);
+    color: #2ecc71;
+    border-radius: 3px;
+    padding: 1px 4px;
+    letter-spacing: 1px;
+  }
+
+  .vote-login-prompt {
+    text-align: center;
+    padding: 40px 20px;
+    color: #8888aa;
+  }
+  .vote-login-prompt .big { font-size: 2rem; margin-bottom: 10px; }
+  .vote-login-prompt h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px; color: var(--accent); margin-bottom: 8px; }
+
+
   * {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -654,6 +795,7 @@
     <button class="btn danger admin-only" id="btnClear" onclick="clearAll()">✕ Clear All</button>
     <button class="btn admin-btn" id="btnAdminPanel" onclick="openAdminModal()">🔒 Admin</button>
     <button class="btn" id="btnMyBracket" onclick="openMyResults()" style="display:none;border-color:#2ecc71;color:#2ecc71;">📋 My Bracket</button>
+    <button class="btn" onclick="openVotingModal()" style="border-color:#a060f0;color:#a060f0;">🗳 Vote</button>
     <button class="btn" onclick="openLeaderboard()" style="border-color:#f0c040;color:#f0c040;">🏅 Leaderboard</button>
     <button class="btn primary" onclick="window.print()">⎙ Print</button>
   </div>
@@ -866,10 +1008,30 @@
   </div>
 </div>
 
-<script>
+<!-- Voting Modal -->
+<div class="modal-overlay" id="votingModal">
+  <div class="modal" style="width:95vw;max-width:860px;max-height:92vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">
+    <!-- Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 14px;border-bottom:1px solid var(--border);flex-shrink:0;">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:4px;color:#f0c040;margin:0;">🗳 VOTE</h2>
+        <div style="font-size:0.72rem;color:#8888aa;margin-top:2px;">Pick who you think should advance — independent of your bracket</div>
+      </div>
+      <button class="btn" style="font-size:0.7rem;padding:4px 10px;flex-shrink:0;" onclick="closeVotingModal()">✕ Close</button>
+    </div>
+    <!-- Round tabs -->
+    <div id="votingRoundTabs" style="display:flex;gap:0;border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;"></div>
+    <!-- Content -->
+    <div id="votingContent" style="overflow-y:auto;flex:1;padding:16px 18px;"></div>
+    <!-- Footer -->
+    <div style="padding:10px 22px;border-top:1px solid var(--border);font-size:0.7rem;color:#555577;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;">
+      <span id="votingUserLabel">Anonymous voting · One vote per matchup · Locked forever</span>
+      <span>Majority wins → advances in bracket</span>
+    </div>
+  </div>
+</div>
 
-// ─── API Helpers (Netlify Functions → Neon DB) ───────────────────────────────
-const API = '/api';
+
 
 async function apiFetch(path, options = {}) {
   let res;
@@ -914,6 +1076,13 @@ const db = {
   },
   async getAllBrackets() {
     return apiFetch('/brackets');
+  },
+  async getVoteTallies(voter_id) {
+    const qs = voter_id ? `?voter_id=${encodeURIComponent(voter_id)}` : '';
+    return apiFetch(`/votes${qs}`);
+  },
+  async castVote(voter_id, round_idx, match_idx, team_idx) {
+    return apiFetch('/votes', { method: 'POST', body: JSON.stringify({ voter_id, round_idx, match_idx, team_idx }) });
   }
 };
 
@@ -2676,6 +2845,279 @@ render();
 // Size title to fit
 const titleEl = document.getElementById('tournamentTitle');
 
+// ─── Voting System ────────────────────────────────────────────────────────────
+// Anonymous: each browser gets a UUID stored in localStorage
+// One vote per matchup, locked forever
+// Majority (>50%) automatically sets official bracket result
+
+let voteTallies = {};   // key: `r${r}m${m}` → { [teamIdx]: count }
+let myVotes = {};       // key: `r${r}m${m}` → teamIdx (locked votes this browser cast)
+let votingRound = 0;
+
+const ROUND_NAMES_VOTE = ['Round of 64', 'Round of 32', 'Sweet 16', 'Elite 8', 'Final Four', 'Championship'];
+const REGION_NAMES = ['Indie', 'Soul', 'SSW/Private', 'Other'];
+
+// Get or create a persistent anonymous voter ID for this browser
+function getVoterId() {
+  try {
+    let id = localStorage.getItem('voterId');
+    if (!id) {
+      id = 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9);
+      localStorage.setItem('voterId', id);
+    }
+    return id;
+  } catch(e) { return 'v-anonymous'; }
+}
+
+function parseVoteData(data) {
+  voteTallies = {};
+  (data.tallies || []).forEach(r => {
+    const key = `r${r.round_idx}m${r.match_idx}`;
+    if (!voteTallies[key]) voteTallies[key] = {};
+    voteTallies[key][r.team_idx] = r.count;
+  });
+  // Merge in any newly returned myVotes (without clearing existing)
+  (data.myVotes || []).forEach(r => {
+    myVotes[`r${r.round_idx}m${r.match_idx}`] = r.team_idx;
+  });
+}
+
+async function loadVoteData() {
+  try {
+    const voterId = getVoterId();
+    const data = await db.getVoteTallies(voterId);
+    // Reset and reload
+    voteTallies = {};
+    myVotes = {};
+    parseVoteData(data);
+  } catch(e) { console.error('loadVoteData:', e); }
+}
+
+async function castVote(roundIdx, matchIdx, teamIdx) {
+  const key = `r${roundIdx}m${matchIdx}`;
+
+  // Already voted — locked, do nothing
+  if (myVotes[key] !== undefined) {
+    showToast('You already voted in this matchup — votes are locked in 🔒');
+    return;
+  }
+
+  const voterId = getVoterId();
+
+  // Optimistic UI update
+  myVotes[key] = teamIdx;
+  if (!voteTallies[key]) voteTallies[key] = {};
+  voteTallies[key][teamIdx] = (voteTallies[key][teamIdx] || 0) + 1;
+  renderVotingContent(votingRound);
+
+  try {
+    const result = await db.castVote(voterId, roundIdx, matchIdx, teamIdx);
+
+    if (result.error === 'already_voted') {
+      showToast('Already voted in this matchup 🔒');
+      return;
+    }
+
+    // Refresh tallies from server
+    parseVoteData({ tallies: result.tallies, myVotes: [] });
+
+    // If majority winner reached — update official results
+    if (result.majorityWinner) {
+      const { round_idx: r, match_idx: m, team_idx: winner } = result.majorityWinner;
+      await applyVoteWinner(r, m, winner);
+    }
+
+    renderVotingContent(votingRound);
+    // Refresh main bracket to show new result
+    if (officialResults) {
+      applyOfficialResultsToMainBracket();
+      render();
+    }
+  } catch(e) {
+    showToast('Vote failed: ' + e.message);
+    // Revert optimistic
+    myVotes[key] = undefined;
+    delete myVotes[key];
+    await loadVoteData();
+    renderVotingContent(votingRound);
+  }
+}
+
+// Apply a majority vote winner to officialResults and persist to DB
+async function applyVoteWinner(roundIdx, matchIdx, winnerTeamIdx) {
+  try {
+    // Build officialResults if it doesn't exist yet
+    if (!officialResults) {
+      const rounds = bracket.map(round => round.map(m => ({ top: m.top, bot: m.bot, winner: null })));
+      const piData = playIn.map(p => ({ top: p.top, bot: p.bot, winner: p.winner, feedMatch: p.feedMatch, region: p.region }));
+      officialResults = { bracket: rounds, playIn: piData };
+    }
+
+    // Set winner for this matchup
+    const match = officialResults.bracket[roundIdx] && officialResults.bracket[roundIdx][matchIdx];
+    if (!match || match.winner !== null) return; // already set
+
+    match.winner = winnerTeamIdx;
+
+    // Cascade winner into next round
+    if (roundIdx < 5) {
+      const nextMatchIdx = Math.floor(matchIdx / 2);
+      const slot = matchIdx % 2 === 0 ? 'top' : 'bot';
+      if (officialResults.bracket[roundIdx + 1] && officialResults.bracket[roundIdx + 1][nextMatchIdx]) {
+        officialResults.bracket[roundIdx + 1][nextMatchIdx][slot] = winnerTeamIdx;
+        officialResults.bracket[roundIdx + 1][nextMatchIdx].top = officialResults.bracket[roundIdx + 1][nextMatchIdx].top;
+      }
+    }
+
+    // Save to DB
+    await db.setSetting('officialResults', JSON.stringify(officialResults));
+    showToast(`🏆 Majority reached! ${teams[winnerTeamIdx]?.name} advances!`);
+
+    applyOfficialResultsToMainBracket();
+    render();
+
+    // Refresh leaderboard if open
+    if (document.getElementById('leaderboardModal').classList.contains('active')) openLeaderboard();
+  } catch(e) {
+    console.error('applyVoteWinner error:', e);
+  }
+}
+
+function getAvailableVotingRounds() {
+  const available = [];
+  for (let r = 0; r < 6; r++) {
+    if ((bracket[r] || []).some(m => m.top !== null && m.bot !== null)) available.push(r);
+  }
+  return available;
+}
+
+function renderVotingRoundTabs(availableRounds) {
+  const tabs = document.getElementById('votingRoundTabs');
+  if (!tabs) return;
+  tabs.innerHTML = '';
+  availableRounds.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'vote-round-tab' + (r === votingRound ? ' active' : '');
+    btn.textContent = ROUND_NAMES_VOTE[r];
+    btn.onclick = () => { votingRound = r; renderVotingRoundTabs(availableRounds); renderVotingContent(r); };
+    tabs.appendChild(btn);
+  });
+}
+
+function renderVotingContent(roundIdx) {
+  const content = document.getElementById('votingContent');
+  if (!content) return;
+
+  const roundMatches = bracket[roundIdx] || [];
+  if (!roundMatches.length || roundMatches.every(m => m.top === null && m.bot === null)) {
+    content.innerHTML = '<div style="color:#8888aa;text-align:center;padding:40px;font-size:0.9rem;">No matchups available for this round yet.<br><span style="font-size:0.8rem;">Check back once earlier rounds are complete.</span></div>';
+    return;
+  }
+
+  let html = '';
+  const matchesPerRegion = roundMatches.length / 4;
+
+  REGION_NAMES.forEach((regionName, ri) => {
+    const startIdx = ri * matchesPerRegion;
+    const regionMatches = roundMatches.slice(startIdx, startIdx + matchesPerRegion);
+    const validMatches = regionMatches.filter(m => m.top !== null && m.bot !== null);
+    if (!validMatches.length) return;
+
+    html += `<div class="vote-section-label">${regionName}</div>`;
+
+    validMatches.forEach((m, localIdx) => {
+      const mIdx = startIdx + localIdx;
+      const key = `r${roundIdx}m${mIdx}`;
+      const tally = voteTallies[key] || {};
+      const myPick = myVotes[key];
+      const voted = myPick !== undefined;
+      const topCount = tally[m.top] || 0;
+      const botCount = tally[m.bot] || 0;
+      const total = topCount + botCount;
+      const topPct = total > 0 ? Math.round(topCount / total * 100) : 50;
+      const botPct = 100 - topPct;
+
+      const topTeam = teams[m.top];
+      const botTeam = teams[m.bot];
+      if (!topTeam || !botTeam) return;
+
+      const offMatch = officialResults?.bracket?.[roundIdx]?.[mIdx];
+      const resultKnown = offMatch?.winner !== null && offMatch?.winner !== undefined;
+      const topIsOffWinner = resultKnown && offMatch.winner === m.top;
+      const botIsOffWinner = resultKnown && offMatch.winner === m.bot;
+
+      const topVoted = myPick === m.top;
+      const botVoted = myPick === m.bot;
+
+      // Majority threshold indicator
+      const majority = Math.floor(total / 2) + 1;
+      const topLeads = topCount >= majority;
+      const botLeads = botCount >= majority;
+
+      const lockIcon = voted ? '🔒' : '';
+
+      html += `<div class="vote-matchup${resultKnown ? ' result-known' : ''}${voted ? ' voted-matchup' : ''}">
+
+        <div class="vote-team${topVoted ? ' voted' : ''}${voted && !topVoted ? ' voted-other' : ''}${resultKnown ? (topIsOffWinner ? ' official-winner' : ' official-loser') : ''}"
+             onclick="castVote(${roundIdx},${mIdx},${m.top})">
+          <div style="display:flex;align-items:center;gap:5px;width:100%;justify-content:center;">
+            <span class="vote-team-seed">${topTeam.seed}</span>
+            <span class="vote-team-name">${escHtml(topTeam.name)}</span>
+            ${topVoted ? '<span style="font-size:0.9rem;">✔</span>' : ''}
+          </div>
+          ${resultKnown && topIsOffWinner ? '<span class="vote-official-badge">✓ ADVANCED</span>' : ''}
+          ${!voted ? '<div style="font-size:0.6rem;color:#555577;margin-top:3px;">Click to vote</div>' : ''}
+          <div class="vote-bar-wrap"><div class="vote-bar${topIsOffWinner ? ' official' : ''}" style="width:${topPct}%"></div></div>
+          <span class="vote-count">${topCount} vote${topCount !== 1 ? 's' : ''} · ${topPct}%</span>
+          ${topLeads && !resultKnown ? '<span style="font-size:0.6rem;color:#f0c040;margin-top:1px;">⚡ Leading</span>' : ''}
+        </div>
+
+        <div class="vote-vs">VS</div>
+
+        <div class="vote-team${botVoted ? ' voted' : ''}${voted && !botVoted ? ' voted-other' : ''}${resultKnown ? (botIsOffWinner ? ' official-winner' : ' official-loser') : ''}"
+             onclick="castVote(${roundIdx},${mIdx},${m.bot})">
+          <div style="display:flex;align-items:center;gap:5px;width:100%;justify-content:center;">
+            <span class="vote-team-seed">${botTeam.seed}</span>
+            <span class="vote-team-name">${escHtml(botTeam.name)}</span>
+            ${botVoted ? '<span style="font-size:0.9rem;">✔</span>' : ''}
+          </div>
+          ${resultKnown && botIsOffWinner ? '<span class="vote-official-badge">✓ ADVANCED</span>' : ''}
+          ${!voted ? '<div style="font-size:0.6rem;color:#555577;margin-top:3px;">Click to vote</div>' : ''}
+          <div class="vote-bar-wrap"><div class="vote-bar${botIsOffWinner ? ' official' : ''}" style="width:${botPct}%"></div></div>
+          <span class="vote-count">${botCount} vote${botCount !== 1 ? 's' : ''} · ${botPct}%</span>
+          ${botLeads && !resultKnown ? '<span style="font-size:0.6rem;color:#f0c040;margin-top:1px;">⚡ Leading</span>' : ''}
+        </div>
+
+      </div>`;
+    });
+  });
+
+  content.innerHTML = html || '<div style="color:#8888aa;text-align:center;padding:40px;">No matchups ready yet.</div>';
+}
+
+async function openVotingModal() {
+  document.getElementById('votingModal').classList.add('active');
+  document.getElementById('votingContent').innerHTML = '<div style="color:#8888aa;text-align:center;padding:30px;">Loading...</div>';
+
+  const lbl = document.getElementById('votingUserLabel');
+  if (lbl) lbl.textContent = `Your vote ID: ${getVoterId().slice(0,12)}… · Votes are anonymous and permanent`;
+
+  await loadVoteData();
+
+  const available = getAvailableVotingRounds();
+  if (!available.includes(votingRound)) votingRound = available[0] ?? 0;
+  renderVotingRoundTabs(available);
+  renderVotingContent(votingRound);
+}
+
+function closeVotingModal() {
+  document.getElementById('votingModal').classList.remove('active');
+}
+
+document.getElementById('votingModal')?.addEventListener('click', e => {
+  if (e.target === document.getElementById('votingModal')) closeVotingModal();
+});
+
 // Expose functions to window so inline onclick handlers work
 Object.assign(window, {
   openRegModal, closeRegModal, submitRegistration,
@@ -2689,7 +3131,8 @@ Object.assign(window, {
   openLeaderboard, closeLeaderboard,
   openMasterModal, closeMasterModal,
   openMyResults, closeMyResultsModal,
-  applyOfficialResultsToMainBracket
+  applyOfficialResultsToMainBracket,
+  openVotingModal, closeVotingModal, castVote
 });
 </script>
 </body>
