@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
     if (req.method === 'GET') {
       const { voter_id } = req.query;
 
+      // Aggregated tallies for all matchups
       const tallies = await sql`
         SELECT round_idx, match_idx, team_idx, COUNT(*)::int as count
         FROM votes
@@ -35,6 +36,7 @@ module.exports = async (req, res) => {
         ORDER BY round_idx, match_idx, team_idx
       `;
 
+      // This voter's locked-in choices
       let myVotes = [];
       if (voter_id) {
         myVotes = await sql`
@@ -54,46 +56,29 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: 'voter_id, round_idx, match_idx, team_idx required' });
       }
 
-      // Check if already voted — locked in, no changes
+      // One vote per matchup — locked forever, no changes allowed
       const [existing] = await sql`
         SELECT id FROM votes
         WHERE voter_id = ${voter_id} AND round_idx = ${round_idx} AND match_idx = ${match_idx}
       `;
       if (existing) {
-        return res.status(409).json({ error: 'already_voted', message: 'You already voted in this matchup.' });
+        return res.status(409).json({ error: 'already_voted', message: 'Vote already cast for this matchup.' });
       }
 
-      // Insert vote
       await sql`
         INSERT INTO votes (voter_id, round_idx, match_idx, team_idx, created_at)
         VALUES (${voter_id}, ${round_idx}, ${match_idx}, ${team_idx}, NOW())
       `;
 
-      // Check if majority reached for this matchup
-      const matchVotes = await sql`
-        SELECT team_idx, COUNT(*)::int as count
-        FROM votes
-        WHERE round_idx = ${round_idx} AND match_idx = ${match_idx}
-        GROUP BY team_idx
-      `;
-
-      const total = matchVotes.reduce((s, r) => s + r.count, 0);
-      const majority = Math.floor(total / 2) + 1;
-      const winner = matchVotes.find(r => r.count >= majority);
-
-      // Return updated tallies + majority winner if reached
-      const allTallies = await sql`
+      // Return updated tallies so client can refresh counts
+      const tallies = await sql`
         SELECT round_idx, match_idx, team_idx, COUNT(*)::int as count
         FROM votes
         GROUP BY round_idx, match_idx, team_idx
         ORDER BY round_idx, match_idx, team_idx
       `;
 
-      return res.status(200).json({
-        success: true,
-        tallies: allTallies,
-        majorityWinner: winner ? { round_idx, match_idx, team_idx: winner.team_idx } : null
-      });
+      return res.status(200).json({ success: true, tallies });
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
