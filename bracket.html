@@ -903,6 +903,7 @@
       <div style="display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:8px;">
         <button class="btn" id="tabRegistrants" onclick="switchAdminTab('registrants')" style="font-size:0.75rem;">👥 Registrants</button>
         <button class="btn primary" id="tabResults" onclick="switchAdminTab('results')" style="font-size:0.75rem;">🏆 Set Results</button>
+        <button class="btn" id="tabVotes" onclick="switchAdminTab('votes')" style="font-size:0.75rem;">🗳 Votes</button>
       </div>
       <!-- Registrants Tab -->
       <div id="adminTabRegistrants">
@@ -931,12 +932,19 @@
           <button class="btn primary" onclick="closeAdminModal()">Close</button>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Bracket Viewer Modal (admin participant view) -->
+      <!-- Votes Tab -->
+      <div id="adminTabVotes" style="display:none">
+        <p style="font-size:0.8rem;color:#8888aa;margin-bottom:10px;">Live vote tallies per round. When you're ready, close voting for a round to apply majority winners as official results.</p>
+        <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;" id="adminVoteRoundTabs"></div>
+        <div id="adminVoteContent" style="overflow-y:auto;max-height:360px;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;border-top:1px solid var(--border);padding-top:10px;">
+          <span style="font-size:0.75rem;color:#8888aa;" id="adminVoteStatus">Select a round above to view tallies.</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn danger" id="btnCloseVoting" onclick="adminCloseVoting()" style="display:none;">🔒 Close Voting & Apply Results</button>
+            <button class="btn primary" onclick="closeAdminModal()">Close</button>
+          </div>
+        </div>
+      </div>
 <div class="modal-overlay" id="viewerModal">
   <div class="modal" style="width:95vw;max-width:1100px;max-height:88vh;display:flex;flex-direction:column;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
@@ -1026,7 +1034,7 @@
     <!-- Footer -->
     <div style="padding:10px 22px;border-top:1px solid var(--border);font-size:0.7rem;color:#555577;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;">
       <span id="votingUserLabel">Anonymous voting · One vote per matchup · Locked forever</span>
-      <span>Majority wins → advances in bracket</span>
+      <span>Admin closes voting to apply results to bracket</span>
     </div>
   </div>
 </div>
@@ -2296,7 +2304,207 @@ function updateBracketLockState() {
   }
 }
 
-// ─── Apply official results to main bracket display ───────────────────────────
+// ─── Admin Votes Tab ──────────────────────────────────────────────────────────
+const ROUND_LABELS = ['Round of 64','Round of 32','Sweet 16','Elite 8','Final Four','Championship'];
+let adminVoteRound = 0;
+
+async function renderAdminVoteTab() {
+  // Load fresh tallies
+  await loadVoteData();
+
+  // Build round tabs — only rounds with at least one matchup
+  const tabsEl = document.getElementById('adminVoteRoundTabs');
+  if (!tabsEl) return;
+  tabsEl.innerHTML = '';
+
+  const available = [];
+  for (let r = 0; r < 6; r++) {
+    if ((bracket[r] || []).some(m => m.top !== null && m.bot !== null)) available.push(r);
+  }
+  if (!available.includes(adminVoteRound)) adminVoteRound = available[0] ?? 0;
+
+  available.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'btn' + (r === adminVoteRound ? ' primary' : '');
+    btn.style.fontSize = '0.7rem';
+    btn.textContent = ROUND_LABELS[r];
+    btn.onclick = () => { adminVoteRound = r; renderAdminVoteTab(); };
+    tabsEl.appendChild(btn);
+  });
+
+  renderAdminVoteContent(adminVoteRound);
+}
+
+function renderAdminVoteContent(roundIdx) {
+  const content = document.getElementById('adminVoteContent');
+  const statusEl = document.getElementById('adminVoteStatus');
+  const closeBtn = document.getElementById('btnCloseVoting');
+  if (!content) return;
+
+  const roundMatches = bracket[roundIdx] || [];
+  const validMatches = roundMatches.filter(m => m.top !== null && m.bot !== null);
+
+  if (!validMatches.length) {
+    content.innerHTML = '<div style="color:#8888aa;padding:20px;text-align:center;">No matchups for this round yet.</div>';
+    closeBtn.style.display = 'none';
+    return;
+  }
+
+  // Check if this round already has official results set
+  const roundHasResults = validMatches.every((m, localIdx) => {
+    const mIdx = roundMatches.indexOf(m);
+    const off = officialResults?.bracket?.[roundIdx]?.[mIdx];
+    return off?.winner !== null && off?.winner !== undefined;
+  });
+
+  // Count total votes for this round
+  let totalVotesRound = 0;
+  validMatches.forEach((m, localIdx) => {
+    const mIdx = roundMatches.indexOf(m);
+    const key = `r${roundIdx}m${mIdx}`;
+    const tally = voteTallies[key] || {};
+    totalVotesRound += Object.values(tally).reduce((s, c) => s + c, 0);
+  });
+
+  const REGIONS = ['Indie','Soul','SSW/Private','Other'];
+  const matchesPerRegion = roundMatches.length / 4;
+
+  let html = '';
+  REGIONS.forEach((regionName, ri) => {
+    const startIdx = ri * matchesPerRegion;
+    const regionMatches = roundMatches.slice(startIdx, startIdx + matchesPerRegion)
+      .filter(m => m.top !== null && m.bot !== null);
+    if (!regionMatches.length) return;
+
+    html += `<div style="font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:3px;color:var(--accent2);margin:10px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--border);">${regionName}</div>`;
+
+    regionMatches.forEach((m, localIdx) => {
+      const mIdx = startIdx + localIdx;
+      const key = `r${roundIdx}m${mIdx}`;
+      const tally = voteTallies[key] || {};
+      const topCount = tally[m.top] || 0;
+      const botCount = tally[m.bot] || 0;
+      const total = topCount + botCount;
+      const topPct = total > 0 ? Math.round(topCount / total * 100) : 50;
+      const botPct = 100 - topPct;
+      const topTeam = teams[m.top], botTeam = teams[m.bot];
+      if (!topTeam || !botTeam) return;
+
+      const off = officialResults?.bracket?.[roundIdx]?.[mIdx];
+      const settled = off?.winner !== null && off?.winner !== undefined;
+      const topWins = topCount > botCount;
+      const botWins = botCount > topCount;
+      const tied = topCount === botCount;
+
+      html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;padding:7px 10px;background:var(--card);border:1px solid ${settled ? '#2a4a2a' : 'var(--border)'};border-radius:4px;">
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:3px;">
+            <span style="font-weight:700;color:${settled ? (off.winner===m.top?'#2ecc71':'#e05a5a') : (topWins?'#f0c040':'var(--text)')}">
+              ${settled && off.winner===m.top ? '✓ ' : ''}${escHtml(topTeam.name)} <span style="color:var(--accent2);font-size:0.6rem;">#${topTeam.seed}</span>
+            </span>
+            <span style="color:${topWins?'#f0c040':'#8888aa'};font-weight:${topWins?'700':'400'}">${topCount} (${topPct}%)</span>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin-bottom:3px;">
+            <div style="height:100%;width:${topPct}%;background:${settled&&off.winner===m.top?'#2ecc71':topWins?'#f0c040':'#555577'};border-radius:3px;transition:width 0.3s;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;">
+            <span style="font-weight:700;color:${settled ? (off.winner===m.bot?'#2ecc71':'#e05a5a') : (botWins?'#f0c040':'var(--text)')}">
+              ${settled && off.winner===m.bot ? '✓ ' : ''}${escHtml(botTeam.name)} <span style="color:var(--accent2);font-size:0.6rem;">#${botTeam.seed}</span>
+            </span>
+            <span style="color:${botWins?'#f0c040':'#8888aa'};font-weight:${botWins?'700':'400'}">${botCount} (${botPct}%)</span>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin-top:3px;">
+            <div style="height:100%;width:${botPct}%;background:${settled&&off.winner===m.bot?'#2ecc71':botWins?'#f0c040':'#555577'};border-radius:3px;transition:width 0.3s;"></div>
+          </div>
+        </div>
+        <div style="font-size:0.65rem;color:#555577;text-align:center;min-width:50px;">
+          ${settled ? `<span style="color:#2ecc71;font-weight:700;">CLOSED</span>` : tied && total > 0 ? `<span style="color:#f0c040;">TIED</span>` : total === 0 ? 'No votes' : ''}
+          <div style="margin-top:2px;">${total} vote${total!==1?'s':''}</div>
+        </div>
+      </div>`;
+    });
+  });
+
+  content.innerHTML = html;
+
+  // Status line
+  if (roundHasResults) {
+    statusEl.innerHTML = `<span style="color:#2ecc71;">✓ Voting closed for ${ROUND_LABELS[roundIdx]} — results applied.</span>`;
+    closeBtn.style.display = 'none';
+  } else {
+    statusEl.textContent = `${totalVotesRound} total vote${totalVotesRound!==1?'s':''} cast in ${ROUND_LABELS[roundIdx]}.`;
+    closeBtn.style.display = '';
+    closeBtn.textContent = `🔒 Close ${ROUND_LABELS[roundIdx]} Voting & Apply Results`;
+  }
+}
+
+async function adminCloseVoting() {
+  const roundIdx = adminVoteRound;
+  const roundMatches = bracket[roundIdx] || [];
+  const validMatches = roundMatches.filter(m => m.top !== null && m.bot !== null);
+
+  if (!validMatches.length) { showToast('No matchups to close.'); return; }
+
+  const label = ROUND_LABELS[roundIdx];
+  if (!confirm(`Close voting for ${label} and apply majority vote winners as official results?\n\nThis cannot be undone.`)) return;
+
+  // Build officialResults if it doesn't exist yet
+  if (!officialResults) {
+    const rounds = bracket.map(round => round.map(m => ({ top: m.top, bot: m.bot, winner: null })));
+    const piData = playIn.map(p => ({ top: p.top, bot: p.bot, winner: p.winner, feedMatch: p.feedMatch, region: p.region }));
+    officialResults = { bracket: rounds, playIn: piData };
+  }
+
+  let applied = 0;
+  validMatches.forEach((m, localIdx) => {
+    const mIdx = roundMatches.indexOf(m);
+    const key = `r${roundIdx}m${mIdx}`;
+    const tally = voteTallies[key] || {};
+    const topCount = tally[m.top] || 0;
+    const botCount = tally[m.bot] || 0;
+
+    // Skip if already has a result
+    if (officialResults.bracket[roundIdx]?.[mIdx]?.winner !== null &&
+        officialResults.bracket[roundIdx]?.[mIdx]?.winner !== undefined) return;
+
+    // Determine winner — majority, or tiebreak by seed (lower seed wins)
+    let winner;
+    if (topCount > botCount) winner = m.top;
+    else if (botCount > topCount) winner = m.bot;
+    else {
+      // Tie — lower seed advances (higher seed number = worse = loses)
+      const topSeed = teams[m.top]?.seed ?? 99;
+      const botSeed = teams[m.bot]?.seed ?? 99;
+      winner = topSeed <= botSeed ? m.top : m.bot;
+    }
+
+    if (!officialResults.bracket[roundIdx]) return;
+    officialResults.bracket[roundIdx][mIdx].winner = winner;
+    officialResults.bracket[roundIdx][mIdx].top = m.top;
+    officialResults.bracket[roundIdx][mIdx].bot = m.bot;
+
+    // Cascade into next round
+    if (roundIdx < 5) {
+      const nextMIdx = Math.floor(mIdx / 2);
+      const slot = mIdx % 2 === 0 ? 'top' : 'bot';
+      if (officialResults.bracket[roundIdx + 1]?.[nextMIdx]) {
+        officialResults.bracket[roundIdx + 1][nextMIdx][slot] = winner;
+      }
+    }
+    applied++;
+  });
+
+  try {
+    await db.setSetting('officialResults', JSON.stringify(officialResults));
+    showToast(`✓ ${label} voting closed — ${applied} result${applied!==1?'s':''} applied!`);
+    applyOfficialResultsToMainBracket();
+    render();
+    renderAdminVoteContent(roundIdx);
+    if (document.getElementById('leaderboardModal').classList.contains('active')) openLeaderboard();
+  } catch(e) {
+    showToast('Error saving results: ' + e.message);
+  }
+}
 function applyOfficialResultsToMainBracket() {
   if (!officialResults) return;
   initBracket();
@@ -2447,9 +2655,12 @@ function closeAdminModal() { document.getElementById('adminModal').classList.rem
 function switchAdminTab(tab) {
   document.getElementById('adminTabRegistrants').style.display = tab === 'registrants' ? '' : 'none';
   document.getElementById('adminTabResults').style.display = tab === 'results' ? '' : 'none';
+  document.getElementById('adminTabVotes').style.display = tab === 'votes' ? '' : 'none';
   document.getElementById('tabRegistrants').classList.toggle('primary', tab === 'registrants');
   document.getElementById('tabResults').classList.toggle('primary', tab === 'results');
+  document.getElementById('tabVotes').classList.toggle('primary', tab === 'votes');
   if (tab === 'results') renderResultsBracket();
+  if (tab === 'votes') renderAdminVoteTab();
 }
 
 // ─── Official Results Bracket ─────────────────────────────────────────────────
@@ -2921,68 +3132,17 @@ async function castVote(roundIdx, matchIdx, teamIdx) {
       return;
     }
 
-    // Refresh tallies from server
+    // Refresh tallies from server — no auto-advance, admin closes voting
     parseVoteData({ tallies: result.tallies, myVotes: [] });
-
-    // If majority winner reached — update official results
-    if (result.majorityWinner) {
-      const { round_idx: r, match_idx: m, team_idx: winner } = result.majorityWinner;
-      await applyVoteWinner(r, m, winner);
-    }
-
     renderVotingContent(votingRound);
-    // Refresh main bracket to show new result
-    if (officialResults) {
-      applyOfficialResultsToMainBracket();
-      render();
-    }
+
   } catch(e) {
     showToast('Vote failed: ' + e.message);
-    // Revert optimistic
+    // Revert optimistic update
     myVotes[key] = undefined;
     delete myVotes[key];
     await loadVoteData();
     renderVotingContent(votingRound);
-  }
-}
-
-// Apply a majority vote winner to officialResults and persist to DB
-async function applyVoteWinner(roundIdx, matchIdx, winnerTeamIdx) {
-  try {
-    // Build officialResults if it doesn't exist yet
-    if (!officialResults) {
-      const rounds = bracket.map(round => round.map(m => ({ top: m.top, bot: m.bot, winner: null })));
-      const piData = playIn.map(p => ({ top: p.top, bot: p.bot, winner: p.winner, feedMatch: p.feedMatch, region: p.region }));
-      officialResults = { bracket: rounds, playIn: piData };
-    }
-
-    // Set winner for this matchup
-    const match = officialResults.bracket[roundIdx] && officialResults.bracket[roundIdx][matchIdx];
-    if (!match || match.winner !== null) return; // already set
-
-    match.winner = winnerTeamIdx;
-
-    // Cascade winner into next round
-    if (roundIdx < 5) {
-      const nextMatchIdx = Math.floor(matchIdx / 2);
-      const slot = matchIdx % 2 === 0 ? 'top' : 'bot';
-      if (officialResults.bracket[roundIdx + 1] && officialResults.bracket[roundIdx + 1][nextMatchIdx]) {
-        officialResults.bracket[roundIdx + 1][nextMatchIdx][slot] = winnerTeamIdx;
-        officialResults.bracket[roundIdx + 1][nextMatchIdx].top = officialResults.bracket[roundIdx + 1][nextMatchIdx].top;
-      }
-    }
-
-    // Save to DB
-    await db.setSetting('officialResults', JSON.stringify(officialResults));
-    showToast(`🏆 Majority reached! ${teams[winnerTeamIdx]?.name} advances!`);
-
-    applyOfficialResultsToMainBracket();
-    render();
-
-    // Refresh leaderboard if open
-    if (document.getElementById('leaderboardModal').classList.contains('active')) openLeaderboard();
-  } catch(e) {
-    console.error('applyVoteWinner error:', e);
   }
 }
 
@@ -3052,12 +3212,8 @@ function renderVotingContent(roundIdx) {
       const topVoted = myPick === m.top;
       const botVoted = myPick === m.bot;
 
-      // Majority threshold indicator
-      const majority = Math.floor(total / 2) + 1;
-      const topLeads = topCount >= majority;
-      const botLeads = botCount >= majority;
-
-      const lockIcon = voted ? '🔒' : '';
+      // Only show tallies after the user has voted (or if result is already known)
+      const showTallies = voted || resultKnown;
 
       html += `<div class="vote-matchup${resultKnown ? ' result-known' : ''}${voted ? ' voted-matchup' : ''}">
 
@@ -3069,10 +3225,9 @@ function renderVotingContent(roundIdx) {
             ${topVoted ? '<span style="font-size:0.9rem;">✔</span>' : ''}
           </div>
           ${resultKnown && topIsOffWinner ? '<span class="vote-official-badge">✓ ADVANCED</span>' : ''}
-          ${!voted ? '<div style="font-size:0.6rem;color:#555577;margin-top:3px;">Click to vote</div>' : ''}
-          <div class="vote-bar-wrap"><div class="vote-bar${topIsOffWinner ? ' official' : ''}" style="width:${topPct}%"></div></div>
-          <span class="vote-count">${topCount} vote${topCount !== 1 ? 's' : ''} · ${topPct}%</span>
-          ${topLeads && !resultKnown ? '<span style="font-size:0.6rem;color:#f0c040;margin-top:1px;">⚡ Leading</span>' : ''}
+          ${!voted && !resultKnown ? '<div style="font-size:0.6rem;color:#555577;margin-top:3px;">Click to vote</div>' : ''}
+          ${showTallies ? `<div class="vote-bar-wrap"><div class="vote-bar${topIsOffWinner ? ' official' : ''}" style="width:${topPct}%"></div></div>
+          <span class="vote-count">${topCount} vote${topCount !== 1 ? 's' : ''} · ${topPct}%</span>` : ''}
         </div>
 
         <div class="vote-vs">VS</div>
@@ -3085,10 +3240,9 @@ function renderVotingContent(roundIdx) {
             ${botVoted ? '<span style="font-size:0.9rem;">✔</span>' : ''}
           </div>
           ${resultKnown && botIsOffWinner ? '<span class="vote-official-badge">✓ ADVANCED</span>' : ''}
-          ${!voted ? '<div style="font-size:0.6rem;color:#555577;margin-top:3px;">Click to vote</div>' : ''}
-          <div class="vote-bar-wrap"><div class="vote-bar${botIsOffWinner ? ' official' : ''}" style="width:${botPct}%"></div></div>
-          <span class="vote-count">${botCount} vote${botCount !== 1 ? 's' : ''} · ${botPct}%</span>
-          ${botLeads && !resultKnown ? '<span style="font-size:0.6rem;color:#f0c040;margin-top:1px;">⚡ Leading</span>' : ''}
+          ${!voted && !resultKnown ? '<div style="font-size:0.6rem;color:#555577;margin-top:3px;">Click to vote</div>' : ''}
+          ${showTallies ? `<div class="vote-bar-wrap"><div class="vote-bar${botIsOffWinner ? ' official' : ''}" style="width:${botPct}%"></div>
+          </div><span class="vote-count">${botCount} vote${botCount !== 1 ? 's' : ''} · ${botPct}%</span>` : ''}
         </div>
 
       </div>`;
@@ -3135,7 +3289,8 @@ Object.assign(window, {
   openMasterModal, closeMasterModal,
   openMyResults, closeMyResultsModal,
   applyOfficialResultsToMainBracket,
-  openVotingModal, closeVotingModal, castVote
+  openVotingModal, closeVotingModal, castVote,
+  adminCloseVoting, renderAdminVoteTab
 });
 </script>
 </body>
